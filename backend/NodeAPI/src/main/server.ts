@@ -1,6 +1,4 @@
-import express from "express";
-
-const app = express();
+import app from "../interfaces/app";
 
 const port = process.env.PORT;
 
