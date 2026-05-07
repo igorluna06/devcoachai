@@ -42,7 +42,17 @@ export class User{
         validatePassword(password);
         const hashed = await hashPassword(password);
         return new User(userName, birthDate, email, hashed, userId);
-  }
+    }
+
+    static restore(
+        userName: string,
+        birthDate: Date,
+        email: string,
+        hashedPassword: string,
+        userId: number
+    ): User {
+        return new User(userName, birthDate, email, hashedPassword, userId);
+    }
 
     getUserId(): number | undefined{return this.userId;}
     getUserName(): string{return this.userName;}
