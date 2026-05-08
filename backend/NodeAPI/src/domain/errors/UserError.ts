@@ -77,3 +77,29 @@ export class UserNotFound extends Error {
   getStatusCode(): number { return this.statusCode; }
   getErrorCode(): string { return this.code; }
 }
+
+export class InvalidCredentialsError extends Error {
+    private statusCode: number;
+    private code: string;
+    constructor() {
+        super(USER_ERROR_MESSAGES.INVALID_CREDENTIALS);
+        this.name = "InvalidCredentialsError";
+        this.code = USER_ERROR_CODES.INVALID_CREDENTIALS;
+        this.statusCode = 401;
+    }
+    getStatusCode(): number { return this.statusCode; }
+    getErrorCode(): string { return this.code; }
+}
+
+export class InvalidOldPasswordError extends Error {
+    private statusCode: number;
+    private code: string;
+    constructor() {
+        super(USER_ERROR_MESSAGES.INVALID_OLD_PASSWORD);
+        this.name = "InvalidOldPasswordError";
+        this.code = USER_ERROR_CODES.INVALID_OLD_PASSWORD;
+        this.statusCode = 400;
+    }
+    getStatusCode(): number { return this.statusCode; }
+    getErrorCode(): string { return this.code; }
+}

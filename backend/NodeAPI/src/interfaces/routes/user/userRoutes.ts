@@ -5,7 +5,8 @@ import { UserEndpoints } from "./userEndpoints";
 const router = Router();
 
 router.post(UserEndpoints.ROOT, (req, res, next) => userController.createUser(req, res, next));
-router.put(UserEndpoints.ROOT, (req, res, next) => userController.updateUser(req, res, next));
+router.patch(UserEndpoints.ROOT, (req, res, next) => userController.updateUser(req, res, next));
+router.patch(UserEndpoints.PASSWORD, (req, res, next) => userController.updatePassword(req, res, next));
 router.get(UserEndpoints.BY_ID, (req, res, next) => userController.getUserById(req, res, next));
 router.get(UserEndpoints.BY_EMAIL, (req, res, next) => userController.getUserByEmail(req, res, next));
 router.get(UserEndpoints.ROOT, (req, res, next) => userController.getAllUser(req, res, next));

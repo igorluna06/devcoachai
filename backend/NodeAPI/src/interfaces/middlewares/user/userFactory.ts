@@ -6,6 +6,7 @@ import { GetAllUserUseCase } from "../../../application/useCases/user/GetAllUser
 import { GetUserByEmailUseCase } from "../../../application/useCases/user/GetUserByEmailUseCase";
 import { DeleteUserUseCase } from "../../../application/useCases/user/DeleteUserUseCase";
 import { UserController } from "../../controllers/user/UserController";
+import { UpdatePasswordUseCase } from "../../../application/useCases/user/UpdatePasswordUseCase";
 
 const repository = new PrismaUserRepository();
 
@@ -15,5 +16,6 @@ export const userController = new UserController(
     new GetUserByIdUseCase(repository),
     new GetAllUserUseCase(repository),
     new GetUserByEmailUseCase(repository),
-    new DeleteUserUseCase(repository)
+    new DeleteUserUseCase(repository),
+    new UpdatePasswordUseCase(repository)
 );
