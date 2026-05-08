@@ -27,7 +27,13 @@ export class PrismaUserRepository implements IUserRepository{
         return PrismaUserMapper.toDomain(user);
     }
     async findByEmail(email: string): Promise<User | null> {
-        throw new Error("Method not implemented.");
+        const user = await prisma.user.findUnique({
+            where: {email}
+        });
+        if(!user) {
+            return null;
+        }
+        return PrismaUserMapper.toDomain(user);
     }
     async update(user: User): Promise<User | null> {
 
@@ -47,7 +53,9 @@ export class PrismaUserRepository implements IUserRepository{
         return user;
     }
     async delete(id: number): Promise<void> {
-        throw new Error("Method not implemented.");
+        await prisma.user.delete({
+            where: {id}
+        });
     }
     async findAll(): Promise<User[]> {
         const users = await prisma.user.findMany();

@@ -6,6 +6,9 @@ import { UpdateUserDTO } from "../../../application/DTOs/user/UpdateUserDTO";
 import { UpdateUserUseCase } from "../../../application/useCases/user/UpdateUserUseCase";
 import { GetUserByIdUseCase } from "../../../application/useCases/user/GetUserByIdUseCase";
 import { GetAllUserUseCase } from "../../../application/useCases/user/GetAllUserUseCase";
+import { GetUserByEmailUseCase } from "../../../application/useCases/user/GetUserByEmailUseCase";
+import { DeleteUserUseCase } from "../../../application/useCases/user/DeleteUserUseCase";
+import { SuccessMessages } from "../../constants/SucessMessages";
 
 export class UserController{
 
@@ -13,17 +16,23 @@ export class UserController{
     private updateUserUseCase: UpdateUserUseCase;
     private getUserByIdUseCase: GetUserByIdUseCase;
     private getAllUserUseCase: GetAllUserUseCase;
+    private getUserByEmailUseCase: GetUserByEmailUseCase;
+    private deleteUserUseCase: DeleteUserUseCase;
 
     constructor(
         createUserUseCase: CreateUserUseCase,
         updateUserUseCase: UpdateUserUseCase,
         getUserByIdUseCase: GetUserByIdUseCase,
-        getAllUserUseCase: GetAllUserUseCase
+        getAllUserUseCase: GetAllUserUseCase,
+        getUserByEmailUseCase: GetUserByEmailUseCase,
+        deleteUserUseCase: DeleteUserUseCase
     ){
         this.createUserUseCase = createUserUseCase;
         this.updateUserUseCase = updateUserUseCase;
         this.getUserByIdUseCase = getUserByIdUseCase;
         this.getAllUserUseCase = getAllUserUseCase
+        this.getUserByEmailUseCase = getUserByEmailUseCase;
+        this.deleteUserUseCase = deleteUserUseCase;
     }
 
     async createUser(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -67,6 +76,26 @@ export class UserController{
         try{
             const users = await this.getAllUserUseCase.execute();
             res.json(users);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async getUserByEmail(req: Request, res: Response, next: NextFunction): Promise<void>{
+        try {
+            const { email } = req.params;
+            const user = await this.getUserByEmailUseCase.execute(email.toString());
+            res.status(HttpStatusCode.OK).json(user);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async deleteUser(req: Request, res: Response, next: NextFunction): Promise<void>{
+        try {
+            const userId: number = Number(req.params.id);
+            const user = await this.deleteUserUseCase.execute(userId);
+            res.status(HttpStatusCode.OK).json({message: SuccessMessages.USER_DELETED});
         } catch (error) {
             next(error);
         }
