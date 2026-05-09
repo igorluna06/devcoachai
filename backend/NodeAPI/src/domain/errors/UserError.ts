@@ -103,3 +103,16 @@ export class InvalidOldPasswordError extends Error {
     getStatusCode(): number { return this.statusCode; }
     getErrorCode(): string { return this.code; }
 }
+
+export class SamePasswordError extends Error {
+    private statusCode: number;
+    private code: string;
+    constructor() {
+        super(USER_ERROR_MESSAGES.SAME_PASSWORD);
+        this.name = "SamePasswordError";
+        this.code = USER_ERROR_CODES.SAME_PASSWORD;
+        this.statusCode = 400;
+    }
+    getStatusCode(): number { return this.statusCode; }
+    getErrorCode(): string { return this.code; }
+}

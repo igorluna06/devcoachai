@@ -11,5 +11,6 @@ router.get(UserEndpoints.BY_ID, (req, res, next) => userController.getUserById(r
 router.get(UserEndpoints.BY_EMAIL, (req, res, next) => userController.getUserByEmail(req, res, next));
 router.get(UserEndpoints.ROOT, (req, res, next) => userController.getAllUser(req, res, next));
 router.delete(UserEndpoints.BY_ID, (req, res, next) => userController.deleteUser(req, res, next));
+router.post(UserEndpoints.AUTH, (req, res, next) => userController.authenticateUser(req, res, next));
 
 export default router;

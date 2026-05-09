@@ -46,7 +46,8 @@ export class PrismaUserRepository implements IUserRepository{
             data: {
                 name: user.getUserName(),
                 email: user.getEmail(),
-                birthDate: user.getBirthDate()
+                birthDate: user.getBirthDate(),
+                password: user.getPasswordHash()
             }
         });
 

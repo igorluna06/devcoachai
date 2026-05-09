@@ -9,6 +9,7 @@ import { GetUserByIdUseCase } from "../../../application/useCases/user/GetUserBy
 import { GetAllUserUseCase } from "../../../application/useCases/user/GetAllUserUseCase";
 import { GetUserByEmailUseCase } from "../../../application/useCases/user/GetUserByEmailUseCase";
 import { DeleteUserUseCase } from "../../../application/useCases/user/DeleteUserUseCase";
+import { AuthenticateUserUseCase } from "../../../application/useCases/user/AuthenticateUserUseCase";
 import { SuccessMessages } from "../../constants/SucessMessages";
 
 export class UserController{
@@ -20,6 +21,7 @@ export class UserController{
     private getUserByEmailUseCase: GetUserByEmailUseCase;
     private deleteUserUseCase: DeleteUserUseCase;
     private updatePasswordUseCase: UpdatePasswordUseCase;
+    private authenticateUserUseCase: AuthenticateUserUseCase;
 
     constructor(
         createUserUseCase: CreateUserUseCase,
@@ -28,7 +30,8 @@ export class UserController{
         getAllUserUseCase: GetAllUserUseCase,
         getUserByEmailUseCase: GetUserByEmailUseCase,
         deleteUserUseCase: DeleteUserUseCase,
-        updatePasswordUseCase: UpdatePasswordUseCase
+        updatePasswordUseCase: UpdatePasswordUseCase,
+         authenticateUserUseCase: AuthenticateUserUseCase
     ){
         this.createUserUseCase = createUserUseCase;
         this.updateUserUseCase = updateUserUseCase;
@@ -37,6 +40,7 @@ export class UserController{
         this.getUserByEmailUseCase = getUserByEmailUseCase;
         this.deleteUserUseCase = deleteUserUseCase;
         this.updatePasswordUseCase = updatePasswordUseCase;
+        this.authenticateUserUseCase = authenticateUserUseCase;
     }
 
     async createUser(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -114,6 +118,16 @@ export class UserController{
             const userId: number = Number(req.params.id);
             const user = await this.deleteUserUseCase.execute(userId);
             res.status(HttpStatusCode.OK).json({message: SuccessMessages.USER_DELETED});
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async authenticateUser(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const { email, password } = req.body;
+            const { token } = await this.authenticateUserUseCase.execute({ email, password });
+            res.status(HttpStatusCode.OK).json({ token });
         } catch (error) {
             next(error);
         }

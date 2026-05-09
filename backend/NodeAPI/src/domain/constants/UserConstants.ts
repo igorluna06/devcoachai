@@ -11,6 +11,7 @@ export const USER_ERROR_MESSAGES = {
   USER_NOT_FOUND: "Usuário não encontrado!",
   INVALID_CREDENTIALS: "E-mail ou senha inválidos.",
   INVALID_OLD_PASSWORD: "Senha atual incorreta.",
+  SAME_PASSWORD: "A nova senha não pode ser igual à senha atual.",
 } as const;
 
 export const USER_ERROR_CODES = {
@@ -22,6 +23,7 @@ export const USER_ERROR_CODES = {
   USER_NOT_FOUND: "USER_NOT_FOUND",
   INVALID_CREDENTIALS: "INVALID_CREDENTIALS",
   INVALID_OLD_PASSWORD: "INVALID_OLD_PASSWORD",
+  SAME_PASSWORD: "SAME_PASSWORD",
 } as const;
 
 export const USER_LABELS = {
