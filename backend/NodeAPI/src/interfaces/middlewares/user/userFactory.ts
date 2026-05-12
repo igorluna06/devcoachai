@@ -19,5 +19,5 @@ export const userController = new UserController(
     new GetUserByEmailUseCase(repository),
     new DeleteUserUseCase(repository),
     new UpdatePasswordUseCase(repository),
-     new AuthenticateUserUseCase(repository)
+    new AuthenticateUserUseCase(repository)
 );

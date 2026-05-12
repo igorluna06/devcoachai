@@ -25,3 +25,16 @@ export class InvalidLanguageError extends Error {
     getStatusCode(): number { return this.statusCode; }
     getErrorCode(): string { return this.code; }
 }
+
+export class StudyPlanAlreadyExistsError extends Error {
+    private statusCode: number;
+    private code: string;
+    constructor() {
+        super(STUDY_PLAN_ERROR_MESSAGES.STUDY_PLAN_ALREADY_EXISTS);
+        this.name = "StudyPlanAlreadyExistsError";
+        this.code = STUDY_PLAN_ERROR_CODES.STUDY_PLAN_ALREADY_EXISTS;
+        this.statusCode = 409;
+    }
+    getStatusCode(): number { return this.statusCode; }
+    getErrorCode(): string { return this.code; }
+}

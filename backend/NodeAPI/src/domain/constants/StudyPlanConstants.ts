@@ -4,9 +4,11 @@ export const STUDY_PLAN_ERROR_MESSAGES = {
         MAX_LENGTH: "Título não pode ter mais de 50 caracteres.",
     },
     INVALID_LANGUAGE: "Linguagem inválida.",
+    STUDY_PLAN_ALREADY_EXISTS: "Você já possui um plano de estudos para essa linguagem.",
 } as const;
 
 export const STUDY_PLAN_ERROR_CODES = {
     INVALID_TITLE: "INVALID_TITLE",
     INVALID_LANGUAGE: "INVALID_LANGUAGE",
+    STUDY_PLAN_ALREADY_EXISTS: "STUDY_PLAN_ALREADY_EXISTS",
 } as const;

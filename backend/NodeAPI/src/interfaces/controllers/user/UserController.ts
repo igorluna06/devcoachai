@@ -10,7 +10,7 @@ import { GetAllUserUseCase } from "../../../application/useCases/user/GetAllUser
 import { GetUserByEmailUseCase } from "../../../application/useCases/user/GetUserByEmailUseCase";
 import { DeleteUserUseCase } from "../../../application/useCases/user/DeleteUserUseCase";
 import { AuthenticateUserUseCase } from "../../../application/useCases/user/AuthenticateUserUseCase";
-import { SuccessMessages } from "../../constants/SucessMessages";
+import { UserSuccessMessages } from "../../constants/SucessMessages";
 
 export class UserController{
 
@@ -48,7 +48,7 @@ export class UserController{
         try{
             const userData: CreateUserDTO = req.body;
             const newUser = await this.createUserUseCase.execute(userData);
-            res.status(HttpStatusCode.CREATED).json({message: SuccessMessages.USER_CREATED, user: newUser});
+            res.status(HttpStatusCode.CREATED).json({message: UserSuccessMessages.USER_CREATED, user: newUser});
         } catch (error) {
             next(error);
         }
@@ -64,7 +64,7 @@ export class UserController{
             birthDate: birthDate ? new Date(birthDate) : undefined
         };
             const updatedUser = await this.updateUserUseCase.execute(updatedData);
-            res.status(HttpStatusCode.OK).json({message: SuccessMessages.USER_UPDATED, user: updatedUser});
+            res.status(HttpStatusCode.OK).json({message: UserSuccessMessages.USER_UPDATED, user: updatedUser});
         } catch (error) {
             next(error);
         }
@@ -78,7 +78,7 @@ export class UserController{
                 oldPassword,
                 newPassword
             });
-            res.status(HttpStatusCode.OK).json({ message: SuccessMessages.PASSWORD_UPDATED});
+            res.status(HttpStatusCode.OK).json({ message: UserSuccessMessages.PASSWORD_UPDATED});
         } catch (error) {
             next(error);
         }
@@ -117,7 +117,7 @@ export class UserController{
         try {
             const userId: number = Number(req.params.id);
             const user = await this.deleteUserUseCase.execute(userId);
-            res.status(HttpStatusCode.OK).json({message: SuccessMessages.USER_DELETED});
+            res.status(HttpStatusCode.OK).json({message: UserSuccessMessages.USER_DELETED});
         } catch (error) {
             next(error);
         }

@@ -1,6 +1,6 @@
 import { User } from "../../domain/entities/User";
 import { IUserRepository } from "../../domain/repositories/IUserRepository";
-import { PrismaUserMapper } from "../database/prisma/mappers/PrismaUserMapper";
+import { PrismaUserMapper } from "../database/prisma/Mappers/PrismaUserMapper";
 import { prisma } from "../database/prisma/PrismaClient";
 
 export class PrismaUserRepository implements IUserRepository{

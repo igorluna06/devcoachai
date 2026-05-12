@@ -1,0 +1,57 @@
+import { StudyPlan } from "../../../domain/entities/StudyPlan";
+import { StudyPlanAlreadyExistsError } from "../../../domain/errors/StudyPlanError";
+import { InvalidIdError, UserNotFound } from "../../../domain/errors/UserError";
+import { IStudyPlanRepository } from "../../../domain/repositories/IStudyPlanRepository";
+import { IUserRepository } from "../../../domain/repositories/IUserRepository";
+import { validateLanguage } from "../../../utils/validators/languageValidator";
+import { validateTitle } from "../../../utils/validators/titleValidator";
+import { CreateStudyPlanDTO } from "../../DTOs/studyPlan/CreateStudyPlanDTO";
+import { MissingRequiredFieldsError } from "../../errors/MissingRequiredFieldsError";
+
+export class CreateStudyPlanUseCase{
+
+    private studyPlanRepository : IStudyPlanRepository;
+    private userRepository : IUserRepository;
+
+    constructor(studyPlanRepository: IStudyPlanRepository, userRepository : IUserRepository){
+        this.studyPlanRepository = studyPlanRepository;
+        this.userRepository = userRepository;
+    }
+
+    async execute(data: CreateStudyPlanDTO): Promise<StudyPlan>{
+
+        if(!data.userId || !data.title || !data.Language){
+            throw new MissingRequiredFieldsError();
+        }
+        
+        if(!Number.isInteger(data.userId) || data.userId <= 0){
+            throw new InvalidIdError();
+        }
+
+        const userFound = await this.userRepository.findById(data.userId);
+
+        if(!userFound){
+            throw new UserNotFound();
+        }
+
+        validateTitle(data.title);
+        validateLanguage(data.Language);
+
+        const userStudyPlans = await this.studyPlanRepository.findByUserId(data.userId);
+        
+        const alreadyExists = userStudyPlans.some(plan => plan.getLanguage() === data.Language);
+        if (alreadyExists) {
+            throw new StudyPlanAlreadyExistsError();
+        } 
+
+        const createdStudyPlan = await this.studyPlanRepository.create(
+            StudyPlan.create(
+                data.userId,
+                data.title,
+                data.Language
+            )
+        );
+
+        return createdStudyPlan;
+    }
+}
