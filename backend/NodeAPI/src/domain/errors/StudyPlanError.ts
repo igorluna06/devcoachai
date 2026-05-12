@@ -38,3 +38,16 @@ export class StudyPlanAlreadyExistsError extends Error {
     getStatusCode(): number { return this.statusCode; }
     getErrorCode(): string { return this.code; }
 }
+
+export class StudyPlanNotFound extends Error {
+    private statusCode: number;
+    private code: string;
+    constructor() {
+        super(STUDY_PLAN_ERROR_MESSAGES.STUDY_PLAN_NOT_FOUND);
+        this.name = "StudyPlanNotFound";
+        this.code = STUDY_PLAN_ERROR_CODES.STUDY_PLAN_NOT_FOUND;
+        this.statusCode = 404;
+    }
+    getStatusCode(): number { return this.statusCode; }
+    getErrorCode(): string { return this.code; }
+}

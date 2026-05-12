@@ -18,8 +18,12 @@ export class PrismaStudyPlanRepository implements IStudyPlanRepository{
         return PrismaStudyPlanMapper.toDomain(created);
     }
 
-    findById(id: number): Promise<StudyPlan | null> {
-        throw new Error("Method not implemented.");
+    async findById(id: number): Promise<StudyPlan | null> {
+        const studyPlanFound = await prisma.studyPlan.findUnique(
+            {where:{id}}
+        )
+        if(!studyPlanFound) return null;
+        return PrismaStudyPlanMapper.toDomain(studyPlanFound);
     }
     findByUserId(userId: number): Promise<StudyPlan[]> {
         throw new Error("Method not implemented.");

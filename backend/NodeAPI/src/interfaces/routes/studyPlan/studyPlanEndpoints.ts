@@ -1,3 +1,4 @@
 export const studyPlanEndpoints = {
-    ROOT: "/"
+    ROOT: "/",
+    BY_ID: "/:id"
 }

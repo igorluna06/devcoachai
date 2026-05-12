@@ -2,10 +2,12 @@ import { StudyPlanController } from "../../controllers/studyPlan/StudyPlanContro
 import { CreateStudyPlanUseCase } from "../../../application/useCases/studyPlan/CreateStudyPlanUseCase";
 import { PrismaStudyPlanRepository } from "../../../infrastructure/repositories/PrismaStudyPlanRepository";
 import { PrismaUserRepository } from "../../../infrastructure/repositories/PrismaUserRepository";
+import { GetStudyPlanByIdUseCase } from "../../../application/useCases/studyPlan/GetStudyPlanByIdUseCase";
 
 const studyPlanRepository = new PrismaStudyPlanRepository();
 const userRepository = new PrismaUserRepository();
 
 export const studyPlanController = new StudyPlanController(
-    new CreateStudyPlanUseCase(studyPlanRepository, userRepository)
+    new CreateStudyPlanUseCase(studyPlanRepository, userRepository),
+    new GetStudyPlanByIdUseCase(studyPlanRepository)
 );
