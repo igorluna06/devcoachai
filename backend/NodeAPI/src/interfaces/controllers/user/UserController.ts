@@ -116,7 +116,7 @@ export class UserController{
     async deleteUser(req: Request, res: Response, next: NextFunction): Promise<void>{
         try {
             const userId: number = Number(req.params.id);
-            const user = await this.deleteUserUseCase.execute(userId);
+            await this.deleteUserUseCase.execute(userId);
             res.status(HttpStatusCode.OK).json({message: UserSuccessMessages.USER_DELETED});
         } catch (error) {
             next(error);

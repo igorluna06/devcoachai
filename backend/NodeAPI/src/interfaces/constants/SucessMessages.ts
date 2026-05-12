@@ -6,5 +6,6 @@ export const UserSuccessMessages = {
 } as const;
 
 export const StudyPlanSucessMessages = {
-    STUDYPLAN_CREATED: "Plano de estudo criado com sucesso.",
+    STUDY_PLAN_CREATED: "Plano de estudo criado com sucesso.",
+    STUDY_PLAN_DELETED: "Plano de estudo deletado com sucesso.",
 } as const;

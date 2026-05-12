@@ -35,8 +35,10 @@ export class PrismaStudyPlanRepository implements IStudyPlanRepository{
     update(studyPlan: StudyPlan): Promise<StudyPlan | null> {
         throw new Error("Method not implemented.");
     }
-    delete(id: number): Promise<void> {
-        throw new Error("Method not implemented.");
+    async delete(id: number): Promise<void> {
+        await prisma.studyPlan.delete({
+            where:{id}
+        })
     }
 
 }
