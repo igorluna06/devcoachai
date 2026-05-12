@@ -4,18 +4,22 @@ import { HttpStatusCode } from "../../constants/HttpStatusCode";
 import { StudyPlanSucessMessages } from "../../constants/SucessMessages";
 import { CreateStudyPlanDTO } from "../../../application/DTOs/studyPlan/CreateStudyPlanDTO";
 import { GetStudyPlanByIdUseCase } from "../../../application/useCases/studyPlan/GetStudyPlanByIdUseCase";
+import { GetAllStudyPlanUseCase } from "../../../application/useCases/studyPlan/GetAllStudyPlanUseCase";
 
 export class StudyPlanController{
 
     private createStudyPlanUseCase: CreateStudyPlanUseCase;
     private getStudyPlanByIdUseCase: GetStudyPlanByIdUseCase;
+    private getAllStudyPlanUseCase: GetAllStudyPlanUseCase;
 
     constructor(
         createStudyPlanUseCase: CreateStudyPlanUseCase,
-        getStudyPlanByIdUseCase: GetStudyPlanByIdUseCase
+        getStudyPlanByIdUseCase: GetStudyPlanByIdUseCase,
+        getAllStudyPlanUseCase: GetAllStudyPlanUseCase
     ){
         this.createStudyPlanUseCase = createStudyPlanUseCase;
         this.getStudyPlanByIdUseCase = getStudyPlanByIdUseCase;
+        this.getAllStudyPlanUseCase = getAllStudyPlanUseCase;
     }
 
     async createStudyPlan(req: Request, res: Response, next: NextFunction): Promise<void>{
@@ -33,6 +37,15 @@ export class StudyPlanController{
             const studyPlanId: number = Number(req.params.id);
             const studyPlan = await this.getStudyPlanByIdUseCase.execute(studyPlanId);
             res.status(HttpStatusCode.OK).json(studyPlan);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async getAllStudyPlan(req: Request, res: Response, next: NextFunction): Promise<void>{
+        try{
+            const studyPlans = await this.getAllStudyPlanUseCase.execute();
+            res.json(studyPlans);
         } catch (error) {
             next(error);
         }

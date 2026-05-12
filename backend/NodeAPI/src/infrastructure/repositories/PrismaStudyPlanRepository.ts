@@ -28,8 +28,9 @@ export class PrismaStudyPlanRepository implements IStudyPlanRepository{
     findByUserId(userId: number): Promise<StudyPlan[]> {
         throw new Error("Method not implemented.");
     }
-    findAll(): Promise<StudyPlan[]> {
-        throw new Error("Method not implemented.");
+    async findAll(): Promise<StudyPlan[]> {
+        const studyPlans = await prisma.studyPlan.findMany();
+        return studyPlans.map(studyPlan => PrismaStudyPlanMapper.toDomain(studyPlan));
     }
     update(studyPlan: StudyPlan): Promise<StudyPlan | null> {
         throw new Error("Method not implemented.");
