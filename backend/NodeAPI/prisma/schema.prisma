@@ -1,0 +1,59 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  birthDate DateTime
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+
+  studyPlans StudyPlan[]
+}
+
+model StudyPlan {
+  id        Int      @id @default(autoincrement())
+  title     String
+  language  Language
+  createdAt DateTime @default(now())
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  modules Module[]
+}
+
+model Module {
+  id        Int      @id @default(autoincrement())
+  title  String
+  order  Int
+
+  studyPlanId Int
+  studyPlan   StudyPlan @relation(fields: [studyPlanId], references: [id])
+
+  tasks Task[]
+}
+
+model Task {
+  id        Int      @id @default(autoincrement())
+  title       String
+  description String?
+  completed   Boolean @default(false)
+
+  moduleId Int
+  module   Module @relation(fields: [moduleId], references: [id])
+}
+
+enum Language {
+  JAVA
+  JAVASCRIPT
+  PYTHON
+}
