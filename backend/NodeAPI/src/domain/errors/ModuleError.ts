@@ -25,3 +25,16 @@ export class InvalidOrderError extends Error {
     getStatusCode(): number { return this.statusCode; }
     getErrorCode(): string { return this.code; }
 }
+
+export class ModuleNotFound extends Error {
+    private statusCode: number;
+    private code: string;
+    constructor() {
+        super(MODULE_ERROR_MESSAGES.MODULE_NOT_FOUND);
+        this.name = "ModuleNotFoundError";
+        this.code = MODULE_ERROR_CODES.MODULE_NOT_FOUND;
+        this.statusCode = 404;
+    }
+    getStatusCode(): number { return this.statusCode; }
+    getErrorCode(): string { return this.code; }
+}
