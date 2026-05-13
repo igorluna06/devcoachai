@@ -29,6 +29,7 @@ export class CreateStudyPlanUseCase{
         }
 
         const userFound = await this.userRepository.findById(data.userId);
+        
 
         if(!userFound){
             throw new UserNotFound();

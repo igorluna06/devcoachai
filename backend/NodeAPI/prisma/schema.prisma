@@ -7,12 +7,12 @@ datasource db {
 }
 
 model User {
-  id        Int        @id @default(autoincrement())
-  name      String
-  birthDate DateTime
-  email     String     @unique
-  password  String
-  createdAt DateTime   @default(now())
+  id         Int         @id @default(autoincrement())
+  name       String
+  birthDate  DateTime
+  email      String      @unique
+  password   String
+  createdAt  DateTime    @default(now())
   studyPlans StudyPlan[]
 }
 
@@ -22,7 +22,7 @@ model StudyPlan {
   language  Language
   createdAt DateTime @default(now())
   userId    Int
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   modules   Module[]
 }
 
@@ -31,7 +31,7 @@ model Module {
   title       String
   order       Int
   studyPlanId Int
-  studyPlan   StudyPlan @relation(fields: [studyPlanId], references: [id])
+  studyPlan   StudyPlan @relation(fields: [studyPlanId], references: [id], onDelete: Cascade)
   tasks       Task[]
 }
 
@@ -41,7 +41,7 @@ model Task {
   description String?
   completed   Boolean @default(false)
   moduleId    Int
-  module      Module  @relation(fields: [moduleId], references: [id])
+  module      Module  @relation(fields: [moduleId], references: [id], onDelete: Cascade)
 }
 
 enum Language {
