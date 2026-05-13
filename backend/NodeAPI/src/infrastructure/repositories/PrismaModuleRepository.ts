@@ -11,13 +11,13 @@ export class PrismaModuleRepository implements IModuleRepository {
     getModuleByStudyPlanId(studyPlanId: number): Promise<Module[]> {
         throw new Error("Method not implemented.");
     }
-    createModule(moduleData: Module): Promise<Module> {
+    create(moduleData: Module): Promise<Module> {
         throw new Error("Method not implemented.");
     }
-    updateModule(id: number, moduleData: Module): Promise<Module | null> {
+    update(id: number, moduleData: Module): Promise<Module | null> {
         throw new Error("Method not implemented.");
     }
-    deleteModule(id: number): Promise<void> {
+    delete(id: number): Promise<void> {
         throw new Error("Method not implemented.");
     }
 }
