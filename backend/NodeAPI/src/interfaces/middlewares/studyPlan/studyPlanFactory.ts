@@ -6,6 +6,7 @@ import { GetStudyPlanByIdUseCase } from "../../../application/useCases/studyPlan
 import { GetAllStudyPlanUseCase } from "../../../application/useCases/studyPlan/GetAllStudyPlanUseCase";
 import { DeleteStudyPlanUseCase } from "../../../application/useCases/studyPlan/DeleteStudyPlanUseCase";
 import { UpdateStudyPlanUseCase } from "../../../application/useCases/studyPlan/updateStudyPlanUseCase";
+import { GetStudyPlanByUserIdUseCase } from "../../../application/useCases/studyPlan/GetStudyPlanByUserIdUseCase";
 
 const studyPlanRepository = new PrismaStudyPlanRepository();
 const userRepository = new PrismaUserRepository();
@@ -15,5 +16,6 @@ export const studyPlanController = new StudyPlanController(
     new GetStudyPlanByIdUseCase(studyPlanRepository),
     new GetAllStudyPlanUseCase(studyPlanRepository),
     new DeleteStudyPlanUseCase(studyPlanRepository),
-    new UpdateStudyPlanUseCase(studyPlanRepository)
+    new UpdateStudyPlanUseCase(studyPlanRepository),
+    new GetStudyPlanByUserIdUseCase(studyPlanRepository, userRepository)
 );
