@@ -6,6 +6,7 @@ import { CreateStudyPlanDTO } from "../../../application/DTOs/studyPlan/CreateSt
 import { GetStudyPlanByIdUseCase } from "../../../application/useCases/studyPlan/GetStudyPlanByIdUseCase";
 import { GetAllStudyPlanUseCase } from "../../../application/useCases/studyPlan/GetAllStudyPlanUseCase";
 import { DeleteStudyPlanUseCase } from "../../../application/useCases/studyPlan/DeleteStudyPlanUseCase";
+import { UpdateStudyPlanUseCase } from "../../../application/useCases/studyPlan/updateStudyPlanUseCase";
 
 export class StudyPlanController{
 
@@ -13,17 +14,20 @@ export class StudyPlanController{
     private getStudyPlanByIdUseCase: GetStudyPlanByIdUseCase;
     private getAllStudyPlanUseCase: GetAllStudyPlanUseCase;
     private deleteStudyPlanUseCase: DeleteStudyPlanUseCase;
+    private updateStudyPlanUseCase: UpdateStudyPlanUseCase;
 
     constructor(
         createStudyPlanUseCase: CreateStudyPlanUseCase,
         getStudyPlanByIdUseCase: GetStudyPlanByIdUseCase,
         getAllStudyPlanUseCase: GetAllStudyPlanUseCase,
-        deleteStudyPlanUseCase: DeleteStudyPlanUseCase
+        deleteStudyPlanUseCase: DeleteStudyPlanUseCase,
+        updateStudyPlanUseCase: UpdateStudyPlanUseCase
     ){
         this.createStudyPlanUseCase = createStudyPlanUseCase;
         this.getStudyPlanByIdUseCase = getStudyPlanByIdUseCase;
         this.getAllStudyPlanUseCase = getAllStudyPlanUseCase;
-        this.deleteStudyPlanUseCase = deleteStudyPlanUseCase
+        this.deleteStudyPlanUseCase = deleteStudyPlanUseCase;
+        this.updateStudyPlanUseCase = updateStudyPlanUseCase;
     }
 
     async createStudyPlan(req: Request, res: Response, next: NextFunction): Promise<void>{
@@ -60,6 +64,16 @@ export class StudyPlanController{
             const studyPlanId: number = Number(req.params.id);
             await this.deleteStudyPlanUseCase.execute(studyPlanId);
             res.status(HttpStatusCode.OK).json({message: StudyPlanSucessMessages.STUDY_PLAN_DELETED});
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async updateStudyPlan(req: Request, res: Response, next: NextFunction): Promise<void>{
+        try {
+            const data = req.body;
+            const updatedStudyPlan = await this.updateStudyPlanUseCase.execute(data);
+            res.status(HttpStatusCode.OK).json({message: StudyPlanSucessMessages.STUDY_PLAN_UPDATED, studyPlan: updatedStudyPlan});
         } catch (error) {
             next(error);
         }

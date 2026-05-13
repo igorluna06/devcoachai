@@ -25,19 +25,34 @@ export class PrismaStudyPlanRepository implements IStudyPlanRepository{
         if(!studyPlanFound) return null;
         return PrismaStudyPlanMapper.toDomain(studyPlanFound);
     }
+
     async findByUserId(userId: number): Promise<StudyPlan[]> {
         const studyPlans = await prisma.studyPlan.findMany({
             where: { userId }
         });
         return studyPlans.map(studyPlan => PrismaStudyPlanMapper.toDomain(studyPlan));
     }
+
     async findAll(): Promise<StudyPlan[]> {
         const studyPlans = await prisma.studyPlan.findMany();
         return studyPlans.map(studyPlan => PrismaStudyPlanMapper.toDomain(studyPlan));
     }
-    update(studyPlan: StudyPlan): Promise<StudyPlan | null> {
-        throw new Error("Method not implemented.");
+
+    async update(studyPlan: StudyPlan): Promise<StudyPlan | null> {
+        const id = studyPlan.getStudyPlanId();
+
+        if(!id) return null;
+
+        return prisma.studyPlan.update({
+            where: { id },
+            data: {
+                title: studyPlan.getTitle(),
+                language: studyPlan.getLanguage() as Language,
+                userId: studyPlan.getUserId(),
+            }
+        }).then(result => PrismaStudyPlanMapper.toDomain(result));
     }
+    
     async delete(id: number): Promise<void> {
         await prisma.studyPlan.delete({
             where:{id}

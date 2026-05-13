@@ -8,4 +8,5 @@ export const UserSuccessMessages = {
 export const StudyPlanSucessMessages = {
     STUDY_PLAN_CREATED: "Plano de estudo criado com sucesso.",
     STUDY_PLAN_DELETED: "Plano de estudo deletado com sucesso.",
+    STUDY_PLAN_UPDATED: "Plano de estudo atualizado com sucesso."
 } as const;
