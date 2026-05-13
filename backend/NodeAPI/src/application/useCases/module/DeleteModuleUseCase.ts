@@ -1,9 +1,8 @@
-import { Module } from "../../../domain/entities/Module";
 import { ModuleNotFound } from "../../../domain/errors/ModuleError";
 import { InvalidIdError } from "../../../domain/errors/UserError";
 import { IModuleRepository } from "../../../domain/repositories/IModuleRepository";
 
-export class GetModuleByIdUseCase {
+export class DeleteModuleUseCase {
 
     private moduleRepository: IModuleRepository;
 
@@ -11,7 +10,7 @@ export class GetModuleByIdUseCase {
         this.moduleRepository = moduleRepository;
     }
 
-    async execute(id: number): Promise<Module> {
+    async execute(id: number): Promise<void> {
 
         if(!id || id <= 0) {
             throw new InvalidIdError();
@@ -23,6 +22,7 @@ export class GetModuleByIdUseCase {
             throw new ModuleNotFound();
         }
 
-        return module;
+        await this.moduleRepository.delete(id);
+
     }
 }

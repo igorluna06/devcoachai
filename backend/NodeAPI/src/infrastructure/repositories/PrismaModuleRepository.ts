@@ -4,18 +4,22 @@ import { PrismaModuleMapper } from "../database/prisma/mappers/PrismaModuleMappe
 import { prisma } from "../database/prisma/PrismaClient";
 
 export class PrismaModuleRepository implements IModuleRepository {
-    async getModuleById(id: number): Promise<Module | null> {
+    async findById(id: number): Promise<Module | null> {
         const moduleFound = await prisma.module.findUnique({
             where: { id }
         });
         if(!moduleFound) return null;
         return PrismaModuleMapper.toDomain(moduleFound);
     }
-    getAllModules(): Promise<Module[]> {
-        throw new Error("Method not implemented.");
+    async findAll(): Promise<Module[]> {
+        const modules = await prisma.module.findMany();
+        return modules.map(module => PrismaModuleMapper.toDomain(module));
     }
-    getModuleByStudyPlanId(studyPlanId: number): Promise<Module[]> {
-        throw new Error("Method not implemented.");
+    async findByStudyPlanId(studyPlanId: number): Promise<Module[]> {
+        const modules = await prisma.module.findMany({
+            where: { studyPlanId }
+        });
+        return modules.map(module => PrismaModuleMapper.toDomain(module));
     }
     async create(module: Module): Promise<Module> {
         const moduleCreated = await prisma.module.create({
@@ -27,10 +31,12 @@ export class PrismaModuleRepository implements IModuleRepository {
         });
         return PrismaModuleMapper.toDomain(moduleCreated);
     }
-    update(id: number, module: Module): Promise<Module | null> {
+    async update(id: number, module: Module): Promise<Module | null> {
         throw new Error("Method not implemented.");
     }
-    delete(id: number): Promise<void> {
-        throw new Error("Method not implemented.");
+    async delete(id: number): Promise<void> {
+        await prisma.module.delete({
+            where: { id }
+        });
     }
 }
