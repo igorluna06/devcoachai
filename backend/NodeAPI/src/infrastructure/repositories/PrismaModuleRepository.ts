@@ -31,8 +31,19 @@ export class PrismaModuleRepository implements IModuleRepository {
         });
         return PrismaModuleMapper.toDomain(moduleCreated);
     }
-    async update(id: number, module: Module): Promise<Module | null> {
-        throw new Error("Method not implemented.");
+    async update(module: Module): Promise<Module | null> {
+        const id = module.getModuleId();
+
+        if(!id) return null;
+
+        const moduleUpdated = await prisma.module.update({
+            where: { id },
+            data: {
+                title: module.getModuleTitle(),
+            }
+        });
+
+        return PrismaModuleMapper.toDomain(moduleUpdated);
     }
     async delete(id: number): Promise<void> {
         await prisma.module.delete({

@@ -7,6 +7,7 @@ import { GetModuleByIdUseCase } from "../../../application/useCases/module/GetMo
 import { GetAllModuleUseCase } from "../../../application/useCases/module/GetAllModuleUseCase";
 import { DeleteModuleUseCase } from "../../../application/useCases/module/deleteModuleUseCase";
 import { GetModuleByStudyPlanIdUseCase } from "../../../application/useCases/module/GetModuleByStudyPlanIdUseCase";
+import { UpdateModuleUseCase } from "../../../application/useCases/module/UpdateModuleUseCase";
 
 export class ModuleController {
     
@@ -15,19 +16,22 @@ export class ModuleController {
     private getAllModulesUseCase: GetAllModuleUseCase;
     private deleteModuleUseCase: DeleteModuleUseCase;
     private getModuleByStudyPlanIdUseCase: GetModuleByStudyPlanIdUseCase;
+    private updateModuleUseCase: UpdateModuleUseCase;
 
     constructor(
         createModuleUseCase: CreateModuleUseCase,
         getModuleByIdUseCase: GetModuleByIdUseCase,
         getAllModulesUseCase: GetAllModuleUseCase,
         deleteModuleUseCase: DeleteModuleUseCase,
-        getModuleByStudyPlanIdUseCase: GetModuleByStudyPlanIdUseCase
+        getModuleByStudyPlanIdUseCase: GetModuleByStudyPlanIdUseCase,
+        updateModuleUseCase: UpdateModuleUseCase
     ) {
         this.createModuleUseCase = createModuleUseCase;
         this.getModuleByIdUseCase = getModuleByIdUseCase;
         this.getAllModulesUseCase = getAllModulesUseCase;
         this.deleteModuleUseCase = deleteModuleUseCase;
         this.getModuleByStudyPlanIdUseCase = getModuleByStudyPlanIdUseCase;
+        this.updateModuleUseCase = updateModuleUseCase;
     }
 
     async createModule(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -80,6 +84,18 @@ export class ModuleController {
             const studyPlanId: number = Number(req.params.studyPlanId);
             const modules = await this.getModuleByStudyPlanIdUseCase.execute(studyPlanId);
             res.status(HttpStatusCode.OK).json(modules);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async updateModule(req: Request, res: Response, next: NextFunction): Promise<void> {
+
+        try {
+            console.log(req.body);
+            const data = req.body;
+            const updatedModule = await this.updateModuleUseCase.execute(data);
+            res.status(HttpStatusCode.OK).json({message: ModuleSuccessMessages.MODULE_UPDATED, module: updatedModule});
         } catch (error) {
             next(error);
         }

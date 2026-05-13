@@ -5,6 +5,6 @@ export interface IModuleRepository {
     findById(id: number): Promise<Module | null>;
     findAll(): Promise<Module[]>;
     findByStudyPlanId(studyPlanId: number): Promise<Module[]>;
-    update(id: number, moduleData: Module): Promise<Module | null>;
+    update(moduleData: Module): Promise<Module | null>;
     delete(id: number): Promise<void>;
 }

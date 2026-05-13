@@ -3,6 +3,7 @@ import { DeleteModuleUseCase } from "../../../application/useCases/module/delete
 import { GetAllModuleUseCase } from "../../../application/useCases/module/GetAllModuleUseCase";
 import { GetModuleByIdUseCase } from "../../../application/useCases/module/GetModuleByIdUseCase";
 import { GetModuleByStudyPlanIdUseCase } from "../../../application/useCases/module/GetModuleByStudyPlanIdUseCase";
+import { UpdateModuleUseCase } from "../../../application/useCases/module/UpdateModuleUseCase";
 import { PrismaModuleRepository } from "../../../infrastructure/repositories/PrismaModuleRepository";
 import { PrismaStudyPlanRepository } from "../../../infrastructure/repositories/PrismaStudyPlanRepository";
 import { ModuleController } from "../../controllers/module/ModuleController";
@@ -15,5 +16,6 @@ export const moduleController = new ModuleController(
     new GetModuleByIdUseCase(moduleRepository),
     new GetAllModuleUseCase(moduleRepository),
     new DeleteModuleUseCase(moduleRepository),
-    new GetModuleByStudyPlanIdUseCase(moduleRepository, studyPlanRepository)
+    new GetModuleByStudyPlanIdUseCase(moduleRepository, studyPlanRepository),
+    new UpdateModuleUseCase(moduleRepository)
 );
