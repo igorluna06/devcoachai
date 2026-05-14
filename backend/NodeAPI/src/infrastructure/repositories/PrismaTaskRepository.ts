@@ -1,4 +1,6 @@
+
 import { Task } from "../../domain/entities/Task";
+import { TaskType } from "../../domain/enums/TaskType";
 import { ITaskRepository } from "../../domain/repositories/ITaskRepository";
 import { PrismaTaskMapper } from "../database/prisma/mappers/PrismaTaskMapper";
 import { prisma } from "../database/prisma/PrismaClient";
@@ -37,11 +39,12 @@ export class PrismaTaskRepository implements ITaskRepository {
         });
         return tasks.map(task => PrismaTaskMapper.toDomain(task));
     }
-    findByType(type: string): Promise<Task[]> {
-        throw new Error("Method not implemented.");
-    }
-    findByDifficultyRating(difficultyRating: number): Promise<Task[]> {
-        throw new Error("Method not implemented.");
+    async findByType(type: TaskType): Promise<Task[]> {
+        const tasks = await prisma.task.findMany({
+            where: {type}
+        });
+
+        return tasks.map(task => PrismaTaskMapper.toDomain(task));
     }
     update(task: Task): Promise<void> {
         throw new Error("Method not implemented.");

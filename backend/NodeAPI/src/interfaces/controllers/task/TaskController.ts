@@ -5,6 +5,9 @@ import { TaskSuccessMessages } from "../../constants/SucessMessages";
 import { GetTaskByIdUseCase } from "../../../application/useCases/task/GetTaskByIdUseCase";
 import { GetAllTaskUseCase } from "../../../application/useCases/task/GetAllTaskUseCase";
 import { GetTaskByModuleIdUseCase } from "../../../application/useCases/task/GetTaskByModuleIdUseCase";
+import { GetTaskByTypeUseCase } from "../../../application/useCases/task/GetTaskByTypeUseCase";
+import { TaskType } from "../../../domain/enums/TaskType";
+
 
 export class TaskController {
 
@@ -12,17 +15,20 @@ export class TaskController {
     private getTaskByIdUseCase: GetTaskByIdUseCase;
     private getAllTaskUseCase: GetAllTaskUseCase;
     private getTaskByModuleIdUseCase: GetTaskByModuleIdUseCase;
+    private getTaskByTypeUseCase: GetTaskByTypeUseCase;
 
     constructor(
         createTaskUseCase: CreateTaskUseCase,
         getTaskByIdUseCase: GetTaskByIdUseCase,
         getAllTaskUseCase: GetAllTaskUseCase,
-        getTaskByModuleIdUseCase: GetTaskByModuleIdUseCase
+        getTaskByModuleIdUseCase: GetTaskByModuleIdUseCase,
+        getTaskByTypeUseCase: GetTaskByTypeUseCase
     ) {
         this.createTaskUseCase = createTaskUseCase;
         this.getTaskByIdUseCase = getTaskByIdUseCase;
         this.getAllTaskUseCase = getAllTaskUseCase;
         this.getTaskByModuleIdUseCase = getTaskByModuleIdUseCase;
+        this.getTaskByTypeUseCase = getTaskByTypeUseCase;
     }
 
     async createTask(req: Request, res: Response, next: NextFunction): Promise<void>{
@@ -62,5 +68,15 @@ export class TaskController {
         } catch (error) {
             next(error);
         }
-    } 
+    }
+    
+    async getTaskByType(req: Request, res: Response, next: NextFunction): Promise<void>{
+        try {
+            const type = req.params.taskType as TaskType;
+            const tasks = await this.getTaskByTypeUseCase.execute(type);
+            res.status(HttpStatusCode.OK).json(tasks);
+        } catch (error) {
+            next(error);
+        }
+    }
 }
