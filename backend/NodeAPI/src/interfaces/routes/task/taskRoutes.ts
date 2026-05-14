@@ -7,6 +7,7 @@ const router = Router();
 router.post(TaskEndpoints.ROOT, (req, res, next) => taskController.createTask(req, res, next));
 router.get(TaskEndpoints.BY_ID, (req, res, next) => taskController.getTaskById(req, res, next));
 router.get(TaskEndpoints.ROOT, (req, res, next) => taskController.getAllTask(req, res, next));
+router.get(TaskEndpoints.BY_MODULE_ID, (req, res, next) => taskController.getTaskByModuleId(req, res, next));
 
 
 export default router;

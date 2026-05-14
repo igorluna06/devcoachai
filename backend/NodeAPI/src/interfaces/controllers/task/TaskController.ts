@@ -4,21 +4,25 @@ import { HttpStatusCode } from "../../constants/HttpStatusCode";
 import { TaskSuccessMessages } from "../../constants/SucessMessages";
 import { GetTaskByIdUseCase } from "../../../application/useCases/task/GetTaskByIdUseCase";
 import { GetAllTaskUseCase } from "../../../application/useCases/task/GetAllTaskUseCase";
+import { GetTaskByModuleIdUseCase } from "../../../application/useCases/task/GetTaskByModuleIdUseCase";
 
 export class TaskController {
 
     private createTaskUseCase: CreateTaskUseCase;
     private getTaskByIdUseCase: GetTaskByIdUseCase;
     private getAllTaskUseCase: GetAllTaskUseCase;
+    private getTaskByModuleIdUseCase: GetTaskByModuleIdUseCase;
 
     constructor(
         createTaskUseCase: CreateTaskUseCase,
         getTaskByIdUseCase: GetTaskByIdUseCase,
-        getAllTaskUseCase: GetAllTaskUseCase
+        getAllTaskUseCase: GetAllTaskUseCase,
+        getTaskByModuleIdUseCase: GetTaskByModuleIdUseCase
     ) {
         this.createTaskUseCase = createTaskUseCase;
         this.getTaskByIdUseCase = getTaskByIdUseCase;
         this.getAllTaskUseCase = getAllTaskUseCase;
+        this.getTaskByModuleIdUseCase = getTaskByModuleIdUseCase;
     }
 
     async createTask(req: Request, res: Response, next: NextFunction): Promise<void>{
@@ -49,4 +53,14 @@ export class TaskController {
             next(error);
         }
     }
+
+    async getTaskByModuleId(req: Request, res: Response, next: NextFunction): Promise<void>{
+        try {
+            const moduleId: number = Number(req.params.moduleId);
+            const tasks = await this.getTaskByModuleIdUseCase.execute(moduleId);
+            res.status(HttpStatusCode.OK).json(tasks);
+        } catch (error) {
+            next(error);
+        }
+    } 
 }

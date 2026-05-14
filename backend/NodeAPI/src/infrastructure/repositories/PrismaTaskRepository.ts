@@ -31,8 +31,11 @@ export class PrismaTaskRepository implements ITaskRepository {
         const tasks = await prisma.task.findMany();
         return tasks.map(task => PrismaTaskMapper.toDomain(task));
     }
-    findByModuleId(moduleId: number): Promise<Task[]> {
-        throw new Error("Method not implemented.");
+    async findByModuleId(moduleId: number): Promise<Task[]> {
+        const tasks = await prisma.task.findMany({
+            where:{moduleId}
+        });
+        return tasks.map(task => PrismaTaskMapper.toDomain(task));
     }
     findByType(type: string): Promise<Task[]> {
         throw new Error("Method not implemented.");
