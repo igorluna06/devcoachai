@@ -47,7 +47,9 @@ export class Task {
         validateTitle(title);
         validateTaskType(type);
         if (description) validateDescription(description);
-        
+        if (estimatedMinutes !== undefined && estimatedMinutes !== null) {
+            if (estimatedMinutes <= 0) throw new InvalidEstimatedMinutesError();
+        }
         return new Task(title, moduleId, type, description, false, estimatedMinutes);
     }
 

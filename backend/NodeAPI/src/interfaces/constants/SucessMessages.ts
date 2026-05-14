@@ -16,3 +16,10 @@ export const ModuleSuccessMessages = {
     MODULE_DELETED: "Módulo deletado com sucesso.",
     MODULE_UPDATED: "Módulo atualizado com sucesso."
 } as const;
+
+export const TaskSuccessMessages = {
+    TASK_CREATED: "Tarefa criada com sucesso.",
+    TASK_DELETED: "Tarefa deletada com sucesso.",
+    TASK_UPDATED: "Tarefa atualizada com sucesso.",
+    TASK_COMPLETED: "Tarefa concluída com sucesso.",
+} as const;
