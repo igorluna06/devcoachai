@@ -4,6 +4,7 @@ import { validateDescription } from "../../utils/validators/descriptionValidator
 import { Language } from "../enums/Language";
 import { Level } from "../enums/Level";
 import { InvalidEstimatedDaysError } from "../errors/StudyPlanError";
+import { validateLevel } from "../../utils/validators/levelValidator";
 
 export class StudyPlan {
 
@@ -48,7 +49,10 @@ export class StudyPlan {
     ): StudyPlan {
         validateTitle(title);
         validateLanguage(language);
-        if (description) validateDescription(description);
+        validateLevel(level);
+        if(description) {
+            validateDescription(description);
+        }
         return new StudyPlan(userId, title, language, level, description, estimatedDays);
     }
 
@@ -91,6 +95,7 @@ export class StudyPlan {
     }
 
     setLevel(level: Level): void {
+        validateLevel(level);
         this.level = level;
     }
 

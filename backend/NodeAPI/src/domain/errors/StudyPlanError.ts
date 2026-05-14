@@ -77,3 +77,16 @@ export class InvalidEstimatedDaysError extends Error {
     getStatusCode(): number { return this.statusCode; }
     getErrorCode(): string { return this.code; }
 }
+
+export class InvalidLevelError extends Error {
+    private statusCode: number;
+    private code: string;
+    constructor() {
+        super(STUDY_PLAN_ERROR_MESSAGES.INVALID_LEVEL);
+        this.name = "InvalidLevelError";
+        this.code = STUDY_PLAN_ERROR_CODES.INVALID_LEVEL;
+        this.statusCode = 400;
+    }
+    getStatusCode(): number { return this.statusCode; }
+    getErrorCode(): string { return this.code; }
+}
