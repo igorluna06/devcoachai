@@ -1,4 +1,4 @@
-import {Module as PrismaModule} from "@prisma/client";
+import { Module as PrismaModule } from "@prisma/client";
 import { Module } from "../../../../domain/entities/Module";
 
 export class PrismaModuleMapper {
@@ -7,7 +7,10 @@ export class PrismaModuleMapper {
             prismaModule.title,
             prismaModule.order,
             prismaModule.studyPlanId,
-            prismaModule.id
+            prismaModule.id,
+            prismaModule.description,
+            prismaModule.isCompleted,
+            prismaModule.estimatedHours
         );
     }
 }

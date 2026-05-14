@@ -12,6 +12,8 @@ export class User{
     private birthDate: Date;
     private email: string;
     private passwordHash: string;
+    private streak: number = 0;
+    private lastStudiedAt: Date | null = null;
     private createdAt: Date;
 
     private constructor(
@@ -49,9 +51,14 @@ export class User{
         birthDate: Date,
         email: string,
         hashedPassword: string,
-        userId: number
+        userId: number,
+        streak: number = 0,
+        lastStudiedAt: Date | null = null
     ): User {
-        return new User(userName, birthDate, email, hashedPassword, userId);
+        const user = new User(userName, birthDate, email, hashedPassword, userId);
+        user.streak = streak;
+        user.lastStudiedAt = lastStudiedAt;
+        return user;
     }
 
     getUserId(): number | undefined{return this.userId;}
@@ -60,6 +67,8 @@ export class User{
     getEmail(): string{return this.email};
     getPasswordHash(): string{return this.passwordHash};
     getCreatedAt(): Date{return this.createdAt};
+    getStreak(): number { return this.streak; }
+    getLastStudiedAt(): Date | null { return this.lastStudiedAt; }
 
     setUserName(userName: string): void{
         validateName(userName);
@@ -76,6 +85,15 @@ export class User{
             throw new InvalidEmailError();
         }
         this.email = email.toLowerCase();
+    }
+
+    incrementStreak(): void {
+        this.streak++;
+        this.lastStudiedAt = new Date();
+    }
+
+    resetStreak(): void {
+        this.streak = 0;
     }
 
     async setPassword(password: string): Promise<void>{
@@ -96,21 +114,6 @@ export class User{
 
     async checkPassword(password: string): Promise<boolean>{
         return await comparePassword(password, this.passwordHash);
-    }
-
-    toJSON(): object {
-        return {
-        userId: this.userId,
-        userName: this.userName,
-        birthDate: this.birthDate.toISOString(),
-        email: this.email,
-        age: this.getAge(),
-        createdAt: this.createdAt.toISOString(),
-        };
-    }
-
-    toString(): string {
-        return USER_LABELS.TO_STRING(this.userId, this.userName, this.email);
     }
 
 }

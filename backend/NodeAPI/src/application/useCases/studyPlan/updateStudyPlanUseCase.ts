@@ -4,6 +4,7 @@ import { UpdateStudyPlanDTO } from "../../DTOs/studyPlan/UpdateStudyPlanDTO";
 import { InvalidIdError } from "../../../domain/errors/UserError";
 import { StudyPlanNotFound } from "../../../domain/errors/StudyPlanError";
 import { validateTitle } from "../../../utils/validators/titleValidator";
+import { validateDescription } from "../../../utils/validators/descriptionValidator";
 
 export class UpdateStudyPlanUseCase {
 
@@ -15,12 +16,11 @@ export class UpdateStudyPlanUseCase {
 
     async execute(data: UpdateStudyPlanDTO): Promise<StudyPlan> {
 
-        if(!data.studyPlanId || data.studyPlanId <= 0) {
+        if (!data.studyPlanId || data.studyPlanId <= 0) {
             throw new InvalidIdError();
         }
 
         const studyPlan = await this.studyPlanRepository.findById(data.studyPlanId);
-
         if (!studyPlan) {
             throw new StudyPlanNotFound();
         }
@@ -30,8 +30,20 @@ export class UpdateStudyPlanUseCase {
             studyPlan.setTitle(data.title);
         }
 
-        const updatedStudyPlan = await this.studyPlanRepository.update(studyPlan);
+        if (data.description !== undefined) {
+            validateDescription(data.description);
+            studyPlan.setDescription(data.description);
+        }
 
+        if (data.estimatedDays !== undefined) {
+            studyPlan.setEstimatedDays(data.estimatedDays);
+        }
+
+        if (data.isActive !== undefined) {
+            data.isActive ? studyPlan.activate() : studyPlan.deactivate();
+        }
+
+        const updatedStudyPlan = await this.studyPlanRepository.update(studyPlan);
         if (!updatedStudyPlan) {
             throw new StudyPlanNotFound();
         }

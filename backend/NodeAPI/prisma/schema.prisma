@@ -7,45 +7,162 @@ datasource db {
 }
 
 model User {
-  id         Int         @id @default(autoincrement())
-  name       String
-  birthDate  DateTime
-  email      String      @unique
-  password   String
-  createdAt  DateTime    @default(now())
-  studyPlans StudyPlan[]
+  id             Int            @id @default(autoincrement())
+  name           String
+  birthDate      DateTime
+  email          String         @unique
+  password       String
+  streak         Int            @default(0)
+  lastStudiedAt  DateTime?
+  createdAt      DateTime       @default(now())
+  studyPlans     StudyPlan[]
+  studySessions  StudySession[]
+  achievements   Achievement[]
+  certificates   Certificate[]
+  onboarding     UserOnboarding?
+}
+
+model UserOnboarding {
+  id                  Int               @id @default(autoincrement())
+  goal                Goal
+  preference          Preference
+  region              String
+  experienceLevel     ExperienceLevel
+  recommendedLanguage Language
+  recommendedStack    String
+  completedAt         DateTime?
+  userId              Int               @unique
+  user                User              @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model StudyPlan {
-  id        Int      @id @default(autoincrement())
-  title     String
-  language  Language
-  createdAt DateTime @default(now())
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  modules   Module[]
+  id           Int          @id @default(autoincrement())
+  title        String
+  description  String?
+  language     Language
+  level        Level
+  estimatedDays Int?
+  isActive     Boolean      @default(true)
+  createdAt    DateTime     @default(now())
+  userId       Int
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  modules      Module[]
+  certificates Certificate[]
 }
 
 model Module {
-  id          Int       @id @default(autoincrement())
-  title       String
-  order       Int
-  studyPlanId Int
-  studyPlan   StudyPlan @relation(fields: [studyPlanId], references: [id], onDelete: Cascade)
-  tasks       Task[]
+  id             Int       @id @default(autoincrement())
+  title          String
+  description    String?
+  order          Int
+  isCompleted    Boolean   @default(false)
+  estimatedHours Int?
+  studyPlanId    Int
+  studyPlan      StudyPlan @relation(fields: [studyPlanId], references: [id], onDelete: Cascade)
+  tasks          Task[]
 }
 
 model Task {
-  id          Int     @id @default(autoincrement())
+  id               Int              @id @default(autoincrement())
+  title            String
+  description      String?
+  type             TaskType
+  isCompleted      Boolean          @default(false)
+  estimatedMinutes Int?
+  difficultyRating DifficultyRating?
+  moduleId         Int
+  module           Module           @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+}
+
+model StudySession {
+  id             Int      @id @default(autoincrement())
+  date           DateTime @default(now())
+  minutesStudied Int
+  tasksCompleted Int
+  userId         Int
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Achievement {
+  id          Int             @id @default(autoincrement())
   title       String
-  description String?
-  completed   Boolean @default(false)
-  moduleId    Int
-  module      Module  @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  description String
+  type        AchievementType
+  unlockedAt  DateTime        @default(now())
+  userId      Int
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Certificate {
+  id           Int       @id @default(autoincrement())
+  title        String
+  issuedAt     DateTime  @default(now())
+  shareableUrl String?
+  userId       Int
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  studyPlanId  Int
+  studyPlan    StudyPlan @relation(fields: [studyPlanId], references: [id], onDelete: Cascade)
 }
 
 enum Language {
   JAVA
   JAVASCRIPT
+  TYPESCRIPT
   PYTHON
+  CSHARP
+  GO
+  RUST
+  KOTLIN
+  SWIFT
+  PHP
+  RUBY
+  C
+  CPP
+  DART
+}
+
+enum Level {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum TaskType {
+  THEORY
+  PRACTICE
+  PROJECT
+}
+
+enum DifficultyRating {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum AchievementType {
+  STREAK
+  MODULE_COMPLETED
+  PLAN_COMPLETED
+  PRACTICE_FOCUSED
+}
+
+enum Goal {
+  FRONTEND
+  BACKEND
+  MOBILE
+  DEVOPS
+  AI
+  GAMES
+}
+
+enum Preference {
+  MORE_JOBS
+  MODERN_TECH
+  BOTH
+}
+
+enum ExperienceLevel {
+  ZERO
+  BEGINNER
+  INTERMEDIATE
 }

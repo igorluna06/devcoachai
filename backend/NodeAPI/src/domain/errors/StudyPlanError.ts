@@ -51,3 +51,29 @@ export class StudyPlanNotFound extends Error {
     getStatusCode(): number { return this.statusCode; }
     getErrorCode(): string { return this.code; }
 }
+
+export class InvalidDescriptionError extends Error {
+    private statusCode: number;
+    private code: string;
+    constructor(message: string) {
+        super(message);
+        this.name = "InvalidDescriptionError";
+        this.code = STUDY_PLAN_ERROR_CODES.INVALID_DESCRIPTION;
+        this.statusCode = 400;
+    }
+    getStatusCode(): number { return this.statusCode; }
+    getErrorCode(): string { return this.code; }
+}
+
+export class InvalidEstimatedDaysError extends Error {
+    private statusCode: number;
+    private code: string;
+    constructor() {
+        super(STUDY_PLAN_ERROR_MESSAGES.INVALID_ESTIMATED_DAYS);
+        this.name = "InvalidEstimatedDaysError";
+        this.code = STUDY_PLAN_ERROR_CODES.INVALID_ESTIMATED_DAYS;
+        this.statusCode = 400;
+    }
+    getStatusCode(): number { return this.statusCode; }
+    getErrorCode(): string { return this.code; }
+}
