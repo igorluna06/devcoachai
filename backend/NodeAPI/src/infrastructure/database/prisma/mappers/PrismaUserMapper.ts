@@ -8,9 +8,7 @@ export class PrismaUserMapper {
             prismaUser.birthDate,
             prismaUser.email,
             prismaUser.password,
-            prismaUser.id,
-            prismaUser.streak,
-            prismaUser.lastStudiedAt
+            prismaUser.id
         );
 
     }

@@ -52,7 +52,7 @@ export class InvalidEstimatedMinutesError extends Error {
     getErrorCode(): string { return this.code; }
 }
 
-export class TaskNotFoundError extends Error {
+export class TaskNotFound extends Error {
     private statusCode: number;
     private code: string;
     constructor() {

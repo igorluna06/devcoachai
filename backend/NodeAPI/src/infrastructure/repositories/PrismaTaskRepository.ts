@@ -18,8 +18,14 @@ export class PrismaTaskRepository implements ITaskRepository {
         });
         return PrismaTaskMapper.toDomain(taskCreated);
     }
-    async findById(taskId: number): Promise<Task | null> {
-        throw new Error("Method not implemented.");
+    async findById(id: number): Promise<Task | null> {
+        const task = await prisma.task.findUnique({
+            where:{id}
+        });
+        if(!task){
+            return null;
+        }
+        return PrismaTaskMapper.toDomain(task);
     }
     findAll(): Promise<Task[]> {
         throw new Error("Method not implemented.");

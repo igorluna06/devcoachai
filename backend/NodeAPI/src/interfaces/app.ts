@@ -5,7 +5,7 @@ import { RoutePaths } from "./routes/constants/RoutePaths";
 import userRoutes from "./routes/user/userRoutes";
 import studyPlanRoutes from "./routes/studyPlan/studyPlanRoutes";
 import moduleRoutes from "./routes/module/moduleRoutes";
-import TaskRoutes from "./routes/task/TaskRoutes";
+import TaskRoutes from "./routes/task/taskRoutes";
 
 const app = express();
 app.use(cors({
