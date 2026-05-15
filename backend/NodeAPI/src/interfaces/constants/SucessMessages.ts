@@ -23,3 +23,9 @@ export const TaskSuccessMessages = {
     TASK_UPDATED: "Tarefa atualizada com sucesso.",
     TASK_COMPLETED: "Tarefa concluída com sucesso.",
 } as const;
+
+export const StudySessionSuccessMessages = {
+    STUDY_SESSION_CREATED: "Sessão de estudo criada com sucesso.",
+    STUDY_SESSION_DELETED: "Sessão de estudo deletada com sucesso.",
+    STUDY_SESSION_UPDATED: "Sessão de estudo atualizada com sucesso."
+} as const;
