@@ -7,6 +7,7 @@ import { GetAllTaskUseCase } from "../../../application/useCases/task/GetAllTask
 import { GetTaskByModuleIdUseCase } from "../../../application/useCases/task/GetTaskByModuleIdUseCase";
 import { GetTaskByTypeUseCase } from "../../../application/useCases/task/GetTaskByTypeUseCase";
 import { TaskType } from "../../../domain/enums/TaskType";
+import { DeleteTaskUseCase } from "../../../application/useCases/task/DeleteTaskUseCase";
 
 
 export class TaskController {
@@ -16,19 +17,22 @@ export class TaskController {
     private getAllTaskUseCase: GetAllTaskUseCase;
     private getTaskByModuleIdUseCase: GetTaskByModuleIdUseCase;
     private getTaskByTypeUseCase: GetTaskByTypeUseCase;
+    private deleteTaskUseCase: DeleteTaskUseCase;
 
     constructor(
         createTaskUseCase: CreateTaskUseCase,
         getTaskByIdUseCase: GetTaskByIdUseCase,
         getAllTaskUseCase: GetAllTaskUseCase,
         getTaskByModuleIdUseCase: GetTaskByModuleIdUseCase,
-        getTaskByTypeUseCase: GetTaskByTypeUseCase
+        getTaskByTypeUseCase: GetTaskByTypeUseCase,
+        deleteTaskUseCase: DeleteTaskUseCase
     ) {
         this.createTaskUseCase = createTaskUseCase;
         this.getTaskByIdUseCase = getTaskByIdUseCase;
         this.getAllTaskUseCase = getAllTaskUseCase;
         this.getTaskByModuleIdUseCase = getTaskByModuleIdUseCase;
         this.getTaskByTypeUseCase = getTaskByTypeUseCase;
+        this.deleteTaskUseCase = deleteTaskUseCase;
     }
 
     async createTask(req: Request, res: Response, next: NextFunction): Promise<void>{
@@ -75,6 +79,16 @@ export class TaskController {
             const type = req.params.taskType as TaskType;
             const tasks = await this.getTaskByTypeUseCase.execute(type);
             res.status(HttpStatusCode.OK).json(tasks);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async deleteTask(req: Request, res: Response, next: NextFunction): Promise<void>{
+        try {
+            const id: number = Number(req.params.id);
+            await this.deleteTaskUseCase.execute(id);
+            res.status(HttpStatusCode.OK).json({message: TaskSuccessMessages.TASK_DELETED});
         } catch (error) {
             next(error);
         }
