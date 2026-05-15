@@ -142,7 +142,7 @@ npm run start:dev
 - [x] CRUD de Usuários
 - [x] CRUD de Planos de Estudo
 - [x] CRUD de Módulos
-- [ ] CRUD de Tarefas
+- [x] CRUD de Tarefas
 - [ ] Streak e Sessões de Estudo
 - [ ] Conquistas e Certificados
 - [ ] Onboarding inteligente
