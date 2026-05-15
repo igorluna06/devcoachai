@@ -8,6 +8,7 @@ import { GetTaskByModuleIdUseCase } from "../../../application/useCases/task/Get
 import { GetTaskByTypeUseCase } from "../../../application/useCases/task/GetTaskByTypeUseCase";
 import { TaskType } from "../../../domain/enums/TaskType";
 import { DeleteTaskUseCase } from "../../../application/useCases/task/DeleteTaskUseCase";
+import { UpdateTaskUseCase } from "../../../application/useCases/task/UpdateTaskUseCase";
 
 
 export class TaskController {
@@ -18,6 +19,7 @@ export class TaskController {
     private getTaskByModuleIdUseCase: GetTaskByModuleIdUseCase;
     private getTaskByTypeUseCase: GetTaskByTypeUseCase;
     private deleteTaskUseCase: DeleteTaskUseCase;
+    private updateTaskUseCase: UpdateTaskUseCase;
 
     constructor(
         createTaskUseCase: CreateTaskUseCase,
@@ -25,7 +27,8 @@ export class TaskController {
         getAllTaskUseCase: GetAllTaskUseCase,
         getTaskByModuleIdUseCase: GetTaskByModuleIdUseCase,
         getTaskByTypeUseCase: GetTaskByTypeUseCase,
-        deleteTaskUseCase: DeleteTaskUseCase
+        deleteTaskUseCase: DeleteTaskUseCase,
+        updateTaskUseCase: UpdateTaskUseCase
     ) {
         this.createTaskUseCase = createTaskUseCase;
         this.getTaskByIdUseCase = getTaskByIdUseCase;
@@ -33,6 +36,7 @@ export class TaskController {
         this.getTaskByModuleIdUseCase = getTaskByModuleIdUseCase;
         this.getTaskByTypeUseCase = getTaskByTypeUseCase;
         this.deleteTaskUseCase = deleteTaskUseCase;
+        this.updateTaskUseCase = updateTaskUseCase;
     }
 
     async createTask(req: Request, res: Response, next: NextFunction): Promise<void>{
@@ -89,6 +93,16 @@ export class TaskController {
             const id: number = Number(req.params.id);
             await this.deleteTaskUseCase.execute(id);
             res.status(HttpStatusCode.OK).json({message: TaskSuccessMessages.TASK_DELETED});
+        } catch (error) {
+            next(error);
+        }
+    }
+    
+    async updateTask(req: Request, res: Response, next: NextFunction): Promise<void>{
+        try {
+            const data = req.body;
+            const updatedTask = await this.updateTaskUseCase.execute(data);
+            res.status(HttpStatusCode.OK).json({message: TaskSuccessMessages.TASK_UPDATED, studyPlan: updatedTask});
         } catch (error) {
             next(error);
         }

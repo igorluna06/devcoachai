@@ -46,9 +46,23 @@ export class PrismaTaskRepository implements ITaskRepository {
 
         return tasks.map(task => PrismaTaskMapper.toDomain(task));
     }
-    update(task: Task): Promise<void> {
-        throw new Error("Method not implemented.");
+    async update(task: Task): Promise<Task | null> {
+        const id = task.getTaskId();
+        if(!id) return null;
+
+        const updatedTask = await prisma.task.update({
+            where:{id},
+            data:{
+                title: task.getTitle(),
+                description: task.getDescription(),
+                isCompleted: task.getIsCompleted(),
+                estimatedMinutes: task.getEstimatedMinutes()
+            }
+        });
+
+        return PrismaTaskMapper.toDomain(updatedTask);
     }
+    
     async delete(id: number): Promise<void> {
         await prisma.task.delete({
             where: {id}

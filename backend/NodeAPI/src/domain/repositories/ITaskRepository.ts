@@ -6,6 +6,6 @@ export interface ITaskRepository{
     findAll(): Promise<Task[]>;
     findByModuleId(moduleId: number): Promise<Task[]>;
     findByType(type: string): Promise<Task[]>;
-    update(task: Task): Promise<void>;
+    update(task: Task): Promise<Task | null>;
     delete(id: number): Promise<void>;
 }

@@ -7,6 +7,7 @@ import { GetAllTaskUseCase } from "../../../application/useCases/task/GetAllTask
 import { GetTaskByModuleIdUseCase } from "../../../application/useCases/task/GetTaskByModuleIdUseCase";
 import { GetTaskByTypeUseCase } from "../../../application/useCases/task/GetTaskByTypeUseCase";
 import { DeleteTaskUseCase } from "../../../application/useCases/task/DeleteTaskUseCase";
+import { UpdateTaskUseCase } from "../../../application/useCases/task/UpdateTaskUseCase";
 
 const prismaTaskRepository = new PrismaTaskRepository();
 const prismaModuleRepository = new PrismaModuleRepository();
@@ -17,5 +18,6 @@ export const taskController = new TaskController(
     new GetAllTaskUseCase(prismaTaskRepository),
     new GetTaskByModuleIdUseCase(prismaTaskRepository, prismaModuleRepository),
     new GetTaskByTypeUseCase(prismaTaskRepository),
-    new DeleteTaskUseCase(prismaTaskRepository)
+    new DeleteTaskUseCase(prismaTaskRepository),
+    new UpdateTaskUseCase(prismaTaskRepository)
 );
