@@ -1,4 +1,5 @@
 import { CreateStudySessionUseCase } from "../../../application/useCases/studySession/CreateStudySessionUseCase";
+import { GetAllStudySessionUseCase } from "../../../application/useCases/studySession/GetAllStudySessionUseCase";
 import { GetStudySessionByIdUseCase } from "../../../application/useCases/studySession/GetStudySessionByIdUseCase";
 import { PrismaStudySessionRepository } from "../../../infrastructure/repositories/PrismaStudySessionRepository";
 import { PrismaUserRepository } from "../../../infrastructure/repositories/PrismaUserRepository";
@@ -10,5 +11,6 @@ const userRepository = new PrismaUserRepository();
 
 export const studySessionController = new StudySessionController(
     new CreateStudySessionUseCase(studySessionRepository, userRepository),
-    new GetStudySessionByIdUseCase(studySessionRepository)
+    new GetStudySessionByIdUseCase(studySessionRepository),
+    new GetAllStudySessionUseCase(studySessionRepository)
 );

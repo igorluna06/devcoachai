@@ -3,6 +3,7 @@ import { CreateStudySessionUseCase } from "../../../application/useCases/studySe
 import { StudySessionSuccessMessages } from "../../constants/SucessMessages";
 import { HttpStatusCode } from "../../constants/HttpStatusCode";
 import { GetStudySessionByIdUseCase } from "../../../application/useCases/studySession/GetStudySessionByIdUseCase";
+import { GetAllStudySessionUseCase } from "../../../application/useCases/studySession/GetAllStudySessionUseCase";
 
 
 
@@ -10,14 +11,17 @@ export class StudySessionController {
 
     private createStudySessionUseCase: CreateStudySessionUseCase;
     private getStudySessionByIdUseCase: GetStudySessionByIdUseCase;
+    private getAllStudySessionUseCase: GetAllStudySessionUseCase;
 
 
     constructor(
         createStudySessionUseCase: CreateStudySessionUseCase,
-        getStudySessionUseCase: GetStudySessionByIdUseCase
+        getStudySessionUseCase: GetStudySessionByIdUseCase,
+        getAllStudySessionUseCase: GetAllStudySessionUseCase
     ) {
         this.createStudySessionUseCase = createStudySessionUseCase; 
         this.getStudySessionByIdUseCase = getStudySessionUseCase;
+        this.getAllStudySessionUseCase = getAllStudySessionUseCase;
     }
 
     async createStudySession(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -35,6 +39,15 @@ export class StudySessionController {
             const studySessionId: number = Number(req.params.id);
             const studySession = await this.getStudySessionByIdUseCase.execute(studySessionId);
             res.status(HttpStatusCode.OK).json(studySession);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async getAllStudySession(req: Request, res: Response, next: NextFunction): Promise<void>{
+        try{
+            const studySessions = await this.getAllStudySessionUseCase.execute();
+            res.json(studySessions);
         } catch (error) {
             next(error);
         }
