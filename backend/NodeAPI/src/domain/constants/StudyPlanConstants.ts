@@ -1,8 +1,5 @@
 export const STUDY_PLAN_ERROR_MESSAGES = {
-    INVALID_TITLE: {
-        EMPTY: "Título não pode ser vazio.",
-        MAX_LENGTH: "Título não pode ter mais de 50 caracteres.",
-    },
+    INVALID_TITLE: "Título do certificado inválido.",
     INVALID_LANGUAGE: "Linguagem inválida.",
     STUDY_PLAN_ALREADY_EXISTS: "Você já possui um plano de estudos para essa linguagem.",
     STUDY_PLAN_NOT_FOUND: "Plano de estudos não encontrado.",

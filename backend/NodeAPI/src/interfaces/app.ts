@@ -8,6 +8,7 @@ import moduleRoutes from "./routes/module/moduleRoutes";
 import TaskRoutes from "./routes/task/taskRoutes";
 import studySessionRoutes from "./routes/studySession/studySessionRoutes";
 import achievementRoutes from "./routes/achievement/achievementRoutes";
+import certificateRoutes from "./routes/certificate/certificateRoutes";
 
 const app = express();
 app.use(cors({
@@ -20,6 +21,7 @@ app.use(RoutePaths.MODULE, moduleRoutes);
 app.use(RoutePaths.TASK, TaskRoutes);
 app.use(RoutePaths.STUDY_SESSION, studySessionRoutes);
 app.use(RoutePaths.ACHIEVEMENT, achievementRoutes);
+app.use(RoutePaths.CERTIFICATE, certificateRoutes);
 
 app.use(errorHandler);
 

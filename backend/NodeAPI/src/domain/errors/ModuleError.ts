@@ -3,8 +3,8 @@ import { MODULE_ERROR_CODES, MODULE_ERROR_MESSAGES } from "../constants/ModuleCo
 export class InvalidModuleTitleError extends Error {
     private statusCode: number;
     private code: string;
-    constructor(message: string) {
-        super(message);
+    constructor() {
+        super(MODULE_ERROR_MESSAGES.INVALID_TITLE);
         this.name = "InvalidModuleTitleError";
         this.code = MODULE_ERROR_CODES.INVALID_TITLE;
         this.statusCode = 400;

@@ -3,8 +3,8 @@ import { STUDY_PLAN_ERROR_CODES, STUDY_PLAN_ERROR_MESSAGES } from "../constants/
 export class InvalidTitleError extends Error {
     private statusCode: number;
     private code: string;
-    constructor(message: string) {
-        super(message);
+    constructor() {
+        super(STUDY_PLAN_ERROR_MESSAGES.INVALID_TITLE);
         this.name = "InvalidTitleError";
         this.code = STUDY_PLAN_ERROR_CODES.INVALID_TITLE;
         this.statusCode = 400;

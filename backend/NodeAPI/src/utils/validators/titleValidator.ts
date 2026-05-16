@@ -3,9 +3,9 @@ import { InvalidTitleError } from "../../domain/errors/StudyPlanError";
 
 export function validateTitle(title: string): void {
     if (!title || title.trim().length === 0) {
-        throw new InvalidTitleError(STUDY_PLAN_ERROR_MESSAGES.INVALID_TITLE.EMPTY);
+        throw new InvalidTitleError();
     }
-    if (title.length > 50) {
-        throw new InvalidTitleError(STUDY_PLAN_ERROR_MESSAGES.INVALID_TITLE.MAX_LENGTH);
+    if (title.length > 100) {
+        throw new InvalidTitleError();
     }
 }

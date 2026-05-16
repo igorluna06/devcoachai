@@ -33,3 +33,9 @@ export const AchievementSuccessMessages = {
     ACHIEVEMENT_CREATED: "Conquista criada com sucesso.",
     ACHIEVEMENT_DELETED: "Conquista deletada com sucesso.",
 } as const;
+
+export const CertificateSuccessMessages = {
+    CERTIFICATE_CREATED: "Certificado criado com sucesso.",
+    CERTIFICATE_UPDATED: "Certificado atualizado com sucesso.",
+    CERTIFICATE_DELETED: "Certificado deletado com sucesso.",
+} as const;

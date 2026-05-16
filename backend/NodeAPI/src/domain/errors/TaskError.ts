@@ -3,8 +3,8 @@ import { TASK_ERROR_CODES, TASK_ERROR_MESSAGES } from "../constants/TaskConstant
 export class InvalidTaskTitleError extends Error {
     private statusCode: number;
     private code: string;
-    constructor(message: string) {
-        super(message);
+    constructor() {
+        super(TASK_ERROR_MESSAGES.INVALID_TITLE);
         this.name = "InvalidTaskTitleError";
         this.code = TASK_ERROR_CODES.INVALID_TITLE;
         this.statusCode = 400;

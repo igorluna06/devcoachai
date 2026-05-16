@@ -1,8 +1,5 @@
 export const TASK_ERROR_MESSAGES = {
-    INVALID_TITLE: {
-        EMPTY: "Título não pode ser vazio.",
-        MAX_LENGTH: "Título não pode ter mais de 50 caracteres.",
-    },
+    INVALID_TITLE: "Título do certificado inválido.",
     INVALID_DESCRIPTION: {
         EMPTY: "Descrição não pode ser vazia.",
         MAX_LENGTH: "Descrição não pode ter mais de 500 caracteres.",
