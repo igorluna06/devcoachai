@@ -5,5 +5,6 @@ import { studySessionController } from "../../middlewares/studySession/StudySess
 const router = Router();
 
 router.post(StudySessionEndpoints.ROOT, (req, res, next) => studySessionController.createStudySession(req, res, next));
+router.get(StudySessionEndpoints.BY_ID, (req, res, next) => studySessionController.getStudySessionById(req, res, next));
 
 export default router;

@@ -15,8 +15,13 @@ export class PrismaStudySessionRepository implements IStudySessionRepository{
         });
         return PrismaStudySessionMapper.toDomain(studyPlanCreated);
     }
-    findById(id: number): Promise<StudySession | null> {
-        throw new Error("Method not implemented.");
+    async findById(id: number): Promise<StudySession | null> {
+        const studySession  = await prisma.studySession.findUnique({
+            where:{id}
+        });
+
+        if(!studySession) return null;
+        return PrismaStudySessionMapper.toDomain(studySession);
     }
     findAll(): Promise<StudySession[]> {
         throw new Error("Method not implemented.");
