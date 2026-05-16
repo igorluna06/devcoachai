@@ -3,5 +3,6 @@ export const RoutePaths = {
     STUDY_PLAN: "/studyplan",
     MODULE: "/module",
     TASK: "/task",
-    STUDY_SESSION: "/studysession"
+    STUDY_SESSION: "/studysession",
+    ACHIEVEMENT: "/achievement"
 } as const;

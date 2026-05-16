@@ -1,0 +1,9 @@
+export const ACHIEVEMENT_ERROR_MESSAGES = {
+    INVALID_ACHIEVEMENT_TYPE: "Tipo de conquista inválido.",
+    ACHIEVEMENT_NOT_FOUND: "Conquista não encontrada.",
+} as const;
+
+export const ACHIEVEMENT_ERROR_CODES = {
+    INVALID_ACHIEVEMENT_TYPE: "INVALID_ACHIEVEMENT_TYPE",
+    ACHIEVEMENT_NOT_FOUND: "ACHIEVEMENT_NOT_FOUND",
+} as const;

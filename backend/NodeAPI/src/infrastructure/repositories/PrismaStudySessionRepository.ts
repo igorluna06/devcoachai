@@ -33,9 +33,6 @@ export class PrismaStudySessionRepository implements IStudySessionRepository{
         });
         return studySessions.map(studySession => PrismaStudySessionMapper.toDomain(studySession));
     }
-    update(studySession: StudySession): Promise<StudySession | null> {
-        throw new Error("Method not implemented.");
-    }
     async delete(id: number): Promise<void> {
         await prisma.studySession.delete({
             where: {id}

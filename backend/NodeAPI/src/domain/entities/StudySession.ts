@@ -44,13 +44,4 @@ export class StudySession {
     getTasksCompleted(): number { return this.tasksCompleted; }
     getUserId(): number { return this.userId; }
 
-    setMinutesStudied(minutes: number): void {
-        if (minutes <= 0) throw new InvalidMinutesStudied();
-        this.minutesStudied = minutes;
-    }
-
-    setTasksCompleted(tasks: number): void {
-        if (tasks < 0) throw new InvalidTasksCompleted();
-        this.tasksCompleted = tasks;
-    }
 }

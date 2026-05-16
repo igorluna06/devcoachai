@@ -27,5 +27,9 @@ export const TaskSuccessMessages = {
 export const StudySessionSuccessMessages = {
     STUDY_SESSION_CREATED: "Sessão de estudo criada com sucesso.",
     STUDY_SESSION_DELETED: "Sessão de estudo deletada com sucesso.",
-    STUDY_SESSION_UPDATED: "Sessão de estudo atualizada com sucesso."
+} as const;
+
+export const AchievementSuccessMessages = {
+    ACHIEVEMENT_CREATED: "Conquista criada com sucesso.",
+    ACHIEVEMENT_DELETED: "Conquista deletada com sucesso.",
 } as const;
