@@ -36,8 +36,10 @@ export class PrismaStudySessionRepository implements IStudySessionRepository{
     update(studySession: StudySession): Promise<StudySession | null> {
         throw new Error("Method not implemented.");
     }
-    delete(id: number): Promise<void> {
-        throw new Error("Method not implemented.");
+    async delete(id: number): Promise<void> {
+        await prisma.studySession.delete({
+            where: {id}
+        });
     }
     
 

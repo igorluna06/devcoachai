@@ -5,6 +5,7 @@ import { HttpStatusCode } from "../../constants/HttpStatusCode";
 import { GetStudySessionByIdUseCase } from "../../../application/useCases/studySession/GetStudySessionByIdUseCase";
 import { GetAllStudySessionUseCase } from "../../../application/useCases/studySession/GetAllStudySessionUseCase";
 import { GetStudySessionByUserIdUseCase } from "../../../application/useCases/studySession/GetStudySessionByUserIdUseCase";
+import { DeleteStudySessionUseCase } from "../../../application/useCases/studySession/DeleteStudySessionUseCase";
 
 
 
@@ -14,18 +15,22 @@ export class StudySessionController {
     private getStudySessionByIdUseCase: GetStudySessionByIdUseCase;
     private getAllStudySessionUseCase: GetAllStudySessionUseCase;
     private getStudySessionByUserIdUseCase: GetStudySessionByUserIdUseCase;
+    private deleteStudySessionUseCase: DeleteStudySessionUseCase;
 
 
     constructor(
         createStudySessionUseCase: CreateStudySessionUseCase,
         getStudySessionUseCase: GetStudySessionByIdUseCase,
         getAllStudySessionUseCase: GetAllStudySessionUseCase,
-        getStudySessionByUserIdUseCase: GetStudySessionByUserIdUseCase
+        getStudySessionByUserIdUseCase: GetStudySessionByUserIdUseCase,
+        deleteStudySessionUseCase: DeleteStudySessionUseCase
+        
     ) {
         this.createStudySessionUseCase = createStudySessionUseCase; 
         this.getStudySessionByIdUseCase = getStudySessionUseCase;
         this.getAllStudySessionUseCase = getAllStudySessionUseCase;
         this.getStudySessionByUserIdUseCase = getStudySessionByUserIdUseCase;
+        this.deleteStudySessionUseCase = deleteStudySessionUseCase;
     }
 
     async createStudySession(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -62,6 +67,16 @@ export class StudySessionController {
             const userId: number = Number(req.params.userId);
             const studySessions = await this.getStudySessionByUserIdUseCase.execute(userId);
             res.status(HttpStatusCode.OK).json(studySessions);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async deleteStudySession(req: Request, res: Response, next: NextFunction): Promise<void>{
+        try {
+            const studySessionId: number = Number(req.params.id);
+            await this.deleteStudySessionUseCase.execute(studySessionId);
+            res.status(HttpStatusCode.OK).json({message: StudySessionSuccessMessages.STUDY_SESSION_DELETED});
         } catch (error) {
             next(error);
         }

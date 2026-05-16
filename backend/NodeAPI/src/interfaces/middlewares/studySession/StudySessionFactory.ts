@@ -1,4 +1,5 @@
 import { CreateStudySessionUseCase } from "../../../application/useCases/studySession/CreateStudySessionUseCase";
+import { DeleteStudySessionUseCase } from "../../../application/useCases/studySession/DeleteStudySessionUseCase";
 import { GetAllStudySessionUseCase } from "../../../application/useCases/studySession/GetAllStudySessionUseCase";
 import { GetStudySessionByIdUseCase } from "../../../application/useCases/studySession/GetStudySessionByIdUseCase";
 import { GetStudySessionByUserIdUseCase } from "../../../application/useCases/studySession/GetStudySessionByUserIdUseCase";
@@ -14,5 +15,6 @@ export const studySessionController = new StudySessionController(
     new CreateStudySessionUseCase(studySessionRepository, userRepository),
     new GetStudySessionByIdUseCase(studySessionRepository),
     new GetAllStudySessionUseCase(studySessionRepository),
-    new GetStudySessionByUserIdUseCase(studySessionRepository, userRepository)
+    new GetStudySessionByUserIdUseCase(studySessionRepository, userRepository),
+    new DeleteStudySessionUseCase(studySessionRepository)
 );
