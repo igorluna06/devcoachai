@@ -4,6 +4,7 @@ import { StudySessionSuccessMessages } from "../../constants/SucessMessages";
 import { HttpStatusCode } from "../../constants/HttpStatusCode";
 import { GetStudySessionByIdUseCase } from "../../../application/useCases/studySession/GetStudySessionByIdUseCase";
 import { GetAllStudySessionUseCase } from "../../../application/useCases/studySession/GetAllStudySessionUseCase";
+import { GetStudySessionByUserIdUseCase } from "../../../application/useCases/studySession/GetStudySessionByUserIdUseCase";
 
 
 
@@ -12,16 +13,19 @@ export class StudySessionController {
     private createStudySessionUseCase: CreateStudySessionUseCase;
     private getStudySessionByIdUseCase: GetStudySessionByIdUseCase;
     private getAllStudySessionUseCase: GetAllStudySessionUseCase;
+    private getStudySessionByUserIdUseCase: GetStudySessionByUserIdUseCase;
 
 
     constructor(
         createStudySessionUseCase: CreateStudySessionUseCase,
         getStudySessionUseCase: GetStudySessionByIdUseCase,
-        getAllStudySessionUseCase: GetAllStudySessionUseCase
+        getAllStudySessionUseCase: GetAllStudySessionUseCase,
+        getStudySessionByUserIdUseCase: GetStudySessionByUserIdUseCase
     ) {
         this.createStudySessionUseCase = createStudySessionUseCase; 
         this.getStudySessionByIdUseCase = getStudySessionUseCase;
         this.getAllStudySessionUseCase = getAllStudySessionUseCase;
+        this.getStudySessionByUserIdUseCase = getStudySessionByUserIdUseCase;
     }
 
     async createStudySession(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -48,6 +52,16 @@ export class StudySessionController {
         try{
             const studySessions = await this.getAllStudySessionUseCase.execute();
             res.json(studySessions);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async getStudySessionByUserId(req: Request, res: Response, next: NextFunction): Promise<void>{
+        try {
+            const userId: number = Number(req.params.userId);
+            const studySessions = await this.getStudySessionByUserIdUseCase.execute(userId);
+            res.status(HttpStatusCode.OK).json(studySessions);
         } catch (error) {
             next(error);
         }

@@ -27,8 +27,11 @@ export class PrismaStudySessionRepository implements IStudySessionRepository{
         const studySessions = await prisma.studySession.findMany();
         return studySessions.map(studySession => PrismaStudySessionMapper.toDomain(studySession));
     }
-    findByUserId(userId: number): Promise<StudySession[]> {
-        throw new Error("Method not implemented.");
+    async findByUserId(userId: number): Promise<StudySession[]> {
+        const studySessions = await prisma.studySession.findMany({
+            where: {userId}
+        });
+        return studySessions.map(studySession => PrismaStudySessionMapper.toDomain(studySession));
     }
     update(studySession: StudySession): Promise<StudySession | null> {
         throw new Error("Method not implemented.");
