@@ -116,3 +116,16 @@ export class SamePasswordError extends Error {
     getStatusCode(): number { return this.statusCode; }
     getErrorCode(): string { return this.code; }
 }
+
+export class UnauthorizedError extends Error {
+    private statusCode: number;
+    private code: string;
+    constructor() {
+        super("Não autorizado.");
+        this.name = "UnauthorizedError";
+        this.code = "UNAUTHORIZED";
+        this.statusCode = 401;
+    }
+    getStatusCode(): number { return this.statusCode; }
+    getErrorCode(): string { return this.code; }
+}

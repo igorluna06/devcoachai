@@ -10,20 +10,24 @@ import studySessionRoutes from "./routes/studySession/studySessionRoutes";
 import achievementRoutes from "./routes/achievement/achievementRoutes";
 import certificateRoutes from "./routes/certificate/certificateRoutes";
 import onboardingRoutes from "./routes/onboarding/onboardingRoutes";
+import { authMiddleware } from "./middlewares/authMiddleware";
 
 const app = express();
 app.use(cors({
   origin: 'http://localhost:5173'
 }));
+
+
 app.use(express.json());
 app.use(RoutePaths.USER, userRoutes);
-app.use(RoutePaths.STUDY_PLAN, studyPlanRoutes)
-app.use(RoutePaths.MODULE, moduleRoutes);
-app.use(RoutePaths.TASK, TaskRoutes);
-app.use(RoutePaths.STUDY_SESSION, studySessionRoutes);
-app.use(RoutePaths.ACHIEVEMENT, achievementRoutes);
-app.use(RoutePaths.CERTIFICATE, certificateRoutes);
-app.use(RoutePaths.ONBOARDING, onboardingRoutes);
+
+app.use(RoutePaths.STUDY_PLAN, authMiddleware, studyPlanRoutes);
+app.use(RoutePaths.MODULE, authMiddleware, moduleRoutes);
+app.use(RoutePaths.TASK, authMiddleware, TaskRoutes);
+app.use(RoutePaths.STUDY_SESSION, authMiddleware, studySessionRoutes);
+app.use(RoutePaths.ACHIEVEMENT, authMiddleware, achievementRoutes);
+app.use(RoutePaths.CERTIFICATE, authMiddleware, certificateRoutes);
+app.use(RoutePaths.ONBOARDING, authMiddleware, onboardingRoutes);
 
 app.use(errorHandler);
 
