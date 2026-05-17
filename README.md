@@ -143,9 +143,9 @@ npm run start:dev
 - [x] CRUD de Planos de Estudo
 - [x] CRUD de Módulos
 - [x] CRUD de Tarefas
-- [ ] Streak e Sessões de Estudo
-- [ ] Conquistas e Certificados
-- [ ] Onboarding inteligente
+- [x] Streak e Sessões de Estudo
+- [x] Conquistas e Certificados
+- [x] Onboarding inteligente
 - [ ] Integração com IA
 - [ ] Serviço Java
 - [ ] Frontend
