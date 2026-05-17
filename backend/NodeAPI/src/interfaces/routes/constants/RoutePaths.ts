@@ -5,5 +5,6 @@ export const RoutePaths = {
     TASK: "/task",
     STUDY_SESSION: "/studysession",
     ACHIEVEMENT: "/achievement",
-    CERTIFICATE: "/certificate"
+    CERTIFICATE: "/certificate",
+    ONBOARDING: "/onboarding"
 } as const;

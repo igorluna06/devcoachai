@@ -39,3 +39,9 @@ export const CertificateSuccessMessages = {
     CERTIFICATE_UPDATED: "Certificado atualizado com sucesso.",
     CERTIFICATE_DELETED: "Certificado deletado com sucesso.",
 } as const;
+
+export const OnboardingSuccessMessages = {
+    ONBOARDING_CREATED: "Onboarding criado com sucesso.",
+    ONBOARDING_COMPLETED: "Onboarding concluído com sucesso.",
+    ONBOARDING_DELETED: "Onboarding deletado com sucesso.",
+} as const;
