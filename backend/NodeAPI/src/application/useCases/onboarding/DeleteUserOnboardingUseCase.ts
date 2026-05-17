@@ -1,5 +1,5 @@
 import { OnboardingAlreadyCompletedError, OnboardingNotFoundError } from "../../../domain/errors/OnboardingError";
-import { InvalidIdError } from "../../../domain/errors/UserError";
+import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IUserOnboardingRepository } from "../../../domain/repositories/IUserOnboardingRepository";
 
 export class DeleteUserOnboardingUseCase {

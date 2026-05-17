@@ -1,6 +1,6 @@
 import { StudySession } from "../../../domain/entities/StudySession";
 import { StudySessionNotFound } from "../../../domain/errors/StudySessionError";
-import { InvalidIdError } from "../../../domain/errors/UserError";
+import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IStudySessionRepository } from "../../../domain/repositories/IStudySessionRepository";
 
 export class GetStudySessionByIdUseCase{

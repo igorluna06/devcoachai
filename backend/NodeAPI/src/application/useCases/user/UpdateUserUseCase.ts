@@ -1,5 +1,6 @@
 import { User } from "../../../domain/entities/User";
-import { InvalidIdError, UserNotFound } from "../../../domain/errors/UserError";
+import { UserNotFound } from "../../../domain/errors/UserError";
+import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IUserRepository } from "../../../domain/repositories/IUserRepository";
 import { isValidDate } from "../../../utils/validators/dateValidator";
 import { validateEmail } from "../../../utils/validators/emailValidator";

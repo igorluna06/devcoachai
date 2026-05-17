@@ -1,5 +1,5 @@
 import { StudyPlanNotFound } from "../../../domain/errors/StudyPlanError";
-import { InvalidIdError } from "../../../domain/errors/UserError";
+import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IStudyPlanRepository } from "../../../domain/repositories/IStudyPlanRepository";
 
 export class DeleteStudyPlanUseCase{

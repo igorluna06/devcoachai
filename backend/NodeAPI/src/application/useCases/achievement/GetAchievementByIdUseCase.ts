@@ -1,6 +1,6 @@
 import { Achievement } from "../../../domain/entities/Achievement";
 import { AchievementNotFound} from "../../../domain/errors/AchievementError";
-import { InvalidIdError } from "../../../domain/errors/UserError";
+import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IAchievementRepository } from "../../../domain/repositories/IAchievementRepository";
 
 export class GetAchievementByIdUseCase {

@@ -1,5 +1,6 @@
 import { Certificate } from "../../../domain/entities/Certificate";
-import { InvalidIdError, UserNotFound } from "../../../domain/errors/UserError";
+import { UserNotFound } from "../../../domain/errors/UserError";
+import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { ICertificateRepository } from "../../../domain/repositories/ICertificateRepository";
 import { IUserRepository } from "../../../domain/repositories/IUserRepository";
 

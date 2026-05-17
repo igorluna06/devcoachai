@@ -1,6 +1,6 @@
 import { Certificate } from "../../../domain/entities/Certificate";
 import { CertificateNotFound } from "../../../domain/errors/CertificateError";
-import { InvalidIdError } from "../../../domain/errors/UserError";
+import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { ICertificateRepository } from "../../../domain/repositories/ICertificateRepository";
 
 export class GetCertificateByIdUseCase {

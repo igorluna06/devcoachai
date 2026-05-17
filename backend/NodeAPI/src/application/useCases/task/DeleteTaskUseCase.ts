@@ -1,5 +1,5 @@
 import { TaskNotFound } from "../../../domain/errors/TaskError";
-import { InvalidIdError } from "../../../domain/errors/UserError";
+import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { ITaskRepository } from "../../../domain/repositories/ITaskRepository";
 
 export class DeleteTaskUseCase{

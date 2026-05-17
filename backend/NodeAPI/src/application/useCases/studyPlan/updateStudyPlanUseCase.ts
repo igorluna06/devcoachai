@@ -1,7 +1,7 @@
 import { StudyPlan } from "../../../domain/entities/StudyPlan";
 import { IStudyPlanRepository } from "../../../domain/repositories/IStudyPlanRepository";
 import { UpdateStudyPlanDTO } from "../../DTOs/studyPlan/UpdateStudyPlanDTO";
-import { InvalidIdError } from "../../../domain/errors/UserError";
+import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { StudyPlanNotFound } from "../../../domain/errors/StudyPlanError";
 import { validateTitle } from "../../../utils/validators/titleValidator";
 import { validateDescription } from "../../../utils/validators/descriptionValidator";

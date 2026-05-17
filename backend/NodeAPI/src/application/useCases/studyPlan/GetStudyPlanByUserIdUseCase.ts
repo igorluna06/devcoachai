@@ -1,5 +1,6 @@
 import { StudyPlan } from "../../../domain/entities/StudyPlan";
-import { InvalidIdError, UserNotFound } from "../../../domain/errors/UserError";
+import { UserNotFound } from "../../../domain/errors/UserError";
+import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IStudyPlanRepository } from "../../../domain/repositories/IStudyPlanRepository";
 import { IUserRepository } from "../../../domain/repositories/IUserRepository";
 

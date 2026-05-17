@@ -1,5 +1,6 @@
 import { StudySession } from "../../../domain/entities/StudySession";
-import { InvalidIdError, UserNotFound } from "../../../domain/errors/UserError";
+import { UserNotFound } from "../../../domain/errors/UserError";
+import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IStudySessionRepository } from "../../../domain/repositories/IStudySessionRepository";
 import { IUserRepository } from "../../../domain/repositories/IUserRepository";
 

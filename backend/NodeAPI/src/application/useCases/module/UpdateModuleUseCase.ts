@@ -1,6 +1,6 @@
 import { Module } from "../../../domain/entities/Module";
 import { ModuleNotFound } from "../../../domain/errors/ModuleError";
-import { InvalidIdError } from "../../../domain/errors/UserError";
+import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IModuleRepository } from "../../../domain/repositories/IModuleRepository";
 import { validateTitle } from "../../../utils/validators/titleValidator";
 import { validateDescription } from "../../../utils/validators/descriptionValidator";

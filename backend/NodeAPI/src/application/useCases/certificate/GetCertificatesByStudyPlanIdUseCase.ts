@@ -1,6 +1,6 @@
 import { Certificate } from "../../../domain/entities/Certificate";
 import { StudyPlanNotFound } from "../../../domain/errors/StudyPlanError";
-import { InvalidIdError } from "../../../domain/errors/UserError";
+import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { ICertificateRepository } from "../../../domain/repositories/ICertificateRepository";
 import { IStudyPlanRepository } from "../../../domain/repositories/IStudyPlanRepository";
 

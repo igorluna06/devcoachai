@@ -1,6 +1,7 @@
 import { StudyPlan } from "../../../domain/entities/StudyPlan";
 import { StudyPlanAlreadyExistsError } from "../../../domain/errors/StudyPlanError";
-import { InvalidIdError, UserNotFound } from "../../../domain/errors/UserError";
+import { InvalidIdError } from "../../../domain/errors/CommonError";
+import { UserNotFound } from "../../../domain/errors/UserError";
 import { IStudyPlanRepository } from "../../../domain/repositories/IStudyPlanRepository";
 import { IUserRepository } from "../../../domain/repositories/IUserRepository";
 import { validateLanguage } from "../../../utils/validators/languageValidator";

@@ -1,6 +1,7 @@
 import { UserOnboarding } from "../../../domain/entities/UserOnboarding";
 import { OnboardingAlreadyExistsError } from "../../../domain/errors/OnboardingError";
-import { InvalidIdError, UserNotFound } from "../../../domain/errors/UserError";
+import { UserNotFound } from "../../../domain/errors/UserError";
+import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IUserOnboardingRepository } from "../../../domain/repositories/IUserOnboardingRepository";
 import { IUserRepository } from "../../../domain/repositories/IUserRepository";
 import { CreateUserOnboardingDTO } from "../../DTOs/onboarding/CreateUserOnboardingDTO";

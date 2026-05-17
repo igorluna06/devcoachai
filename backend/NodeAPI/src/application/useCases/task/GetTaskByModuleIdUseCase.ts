@@ -1,7 +1,7 @@
 import { Task } from "../../../domain/entities/Task";
 import { ModuleNotFound } from "../../../domain/errors/ModuleError";
 import { TaskNotFound } from "../../../domain/errors/TaskError";
-import { InvalidIdError } from "../../../domain/errors/UserError";
+import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IModuleRepository } from "../../../domain/repositories/IModuleRepository";
 import { ITaskRepository } from "../../../domain/repositories/ITaskRepository";
 

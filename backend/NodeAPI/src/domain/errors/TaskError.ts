@@ -1,31 +1,5 @@
 import { TASK_ERROR_CODES, TASK_ERROR_MESSAGES } from "../constants/TaskConstants";
 
-export class InvalidTaskTitleError extends Error {
-    private statusCode: number;
-    private code: string;
-    constructor() {
-        super(TASK_ERROR_MESSAGES.INVALID_TITLE);
-        this.name = "InvalidTaskTitleError";
-        this.code = TASK_ERROR_CODES.INVALID_TITLE;
-        this.statusCode = 400;
-    }
-    getStatusCode(): number { return this.statusCode; }
-    getErrorCode(): string { return this.code; }
-}
-
-export class InvalidTaskDescriptionError extends Error {
-    private statusCode: number;
-    private code: string;
-    constructor(message: string) {
-        super(message);
-        this.name = "InvalidTaskDescriptionError";
-        this.code = TASK_ERROR_CODES.INVALID_DESCRIPTION;
-        this.statusCode = 400;
-    }
-    getStatusCode(): number { return this.statusCode; }
-    getErrorCode(): string { return this.code; }
-}
-
 export class InvalidTaskTypeError extends Error {
     private statusCode: number;
     private code: string;

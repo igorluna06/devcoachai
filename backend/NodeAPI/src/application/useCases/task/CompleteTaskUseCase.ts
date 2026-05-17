@@ -1,6 +1,6 @@
 import { Task } from "../../../domain/entities/Task";
 import { TaskNotFound } from "../../../domain/errors/TaskError";
-import { InvalidIdError } from "../../../domain/errors/UserError";
+import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { ITaskRepository } from "../../../domain/repositories/ITaskRepository";
 import { IModuleRepository } from "../../../domain/repositories/IModuleRepository";
 import { IStudyPlanRepository } from "../../../domain/repositories/IStudyPlanRepository";

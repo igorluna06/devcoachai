@@ -1,5 +1,6 @@
 import { Achievement } from "../../../domain/entities/Achievement";
-import { InvalidIdError, UserNotFound } from "../../../domain/errors/UserError";
+import { InvalidIdError } from "../../../domain/errors/CommonError";
+import { UserNotFound } from "../../../domain/errors/UserError";
 import { IAchievementRepository } from "../../../domain/repositories/IAchievementRepository";
 import { IUserRepository } from "../../../domain/repositories/IUserRepository";
 

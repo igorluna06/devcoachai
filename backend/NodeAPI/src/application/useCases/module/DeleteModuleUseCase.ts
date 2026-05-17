@@ -1,5 +1,5 @@
 import { ModuleNotFound } from "../../../domain/errors/ModuleError";
-import { InvalidIdError } from "../../../domain/errors/UserError";
+import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IModuleRepository } from "../../../domain/repositories/IModuleRepository";
 
 export class DeleteModuleUseCase {

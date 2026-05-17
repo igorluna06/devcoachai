@@ -1,11 +1,12 @@
 import { Certificate } from "../../../domain/entities/Certificate";
-import { InvalidIdError, UserNotFound } from "../../../domain/errors/UserError";
+import { UserNotFound } from "../../../domain/errors/UserError";
 import { ICertificateRepository } from "../../../domain/repositories/ICertificateRepository";
 import { IUserRepository } from "../../../domain/repositories/IUserRepository";
 import { IStudyPlanRepository } from "../../../domain/repositories/IStudyPlanRepository";
 import { StudyPlanNotFound } from "../../../domain/errors/StudyPlanError";
 import { CreateCertificateDTO } from "../../DTOs/certificate/CreateCertificateDTO";
 import { MissingRequiredFieldsError } from "../../errors/MissingRequiredFieldsError";
+import { InvalidIdError } from "../../../domain/errors/CommonError";
 
 export class CreateCertificateUseCase {
 

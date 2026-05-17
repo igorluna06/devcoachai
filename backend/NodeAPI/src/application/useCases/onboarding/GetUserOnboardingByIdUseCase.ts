@@ -1,6 +1,6 @@
 import { UserOnboarding } from "../../../domain/entities/UserOnboarding";
 import { OnboardingNotFoundError } from "../../../domain/errors/OnboardingError";
-import { InvalidIdError } from "../../../domain/errors/UserError";
+import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IUserOnboardingRepository } from "../../../domain/repositories/IUserOnboardingRepository";
 
 export class GetUserOnboardingByIdUseCase {
