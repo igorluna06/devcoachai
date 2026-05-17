@@ -9,7 +9,8 @@ router.get(TaskEndpoints.BY_ID, (req, res, next) => taskController.getTaskById(r
 router.get(TaskEndpoints.ROOT, (req, res, next) => taskController.getAllTask(req, res, next));
 router.get(TaskEndpoints.BY_MODULE_ID, (req, res, next) => taskController.getTaskByModuleId(req, res, next));
 router.get(TaskEndpoints.BY_TYPE, (req, res, next) => taskController.getTaskByType(req, res, next));
-router.patch(TaskEndpoints.ROOT, (req, res, next) => taskController.updateTask(req, res, next))
+router.patch(TaskEndpoints.ROOT, (req, res, next) => taskController.updateTask(req, res, next));
+router.patch(TaskEndpoints.COMPLETE, (req, res, next) => taskController.completeTask(req, res, next));
 router.delete(TaskEndpoints.BY_ID, (req, res, next) => taskController.deleteTask(req, res, next));
 
 

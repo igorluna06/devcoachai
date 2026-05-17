@@ -9,6 +9,7 @@ import { GetTaskByTypeUseCase } from "../../../application/useCases/task/GetTask
 import { TaskType } from "../../../domain/enums/TaskType";
 import { DeleteTaskUseCase } from "../../../application/useCases/task/DeleteTaskUseCase";
 import { UpdateTaskUseCase } from "../../../application/useCases/task/UpdateTaskUseCase";
+import { CompleteTaskUseCase } from "../../../application/useCases/task/CompleteTaskUseCase";
 
 
 export class TaskController {
@@ -20,6 +21,7 @@ export class TaskController {
     private getTaskByTypeUseCase: GetTaskByTypeUseCase;
     private deleteTaskUseCase: DeleteTaskUseCase;
     private updateTaskUseCase: UpdateTaskUseCase;
+    private completeTaskUseCase: CompleteTaskUseCase;
 
     constructor(
         createTaskUseCase: CreateTaskUseCase,
@@ -28,7 +30,8 @@ export class TaskController {
         getTaskByModuleIdUseCase: GetTaskByModuleIdUseCase,
         getTaskByTypeUseCase: GetTaskByTypeUseCase,
         deleteTaskUseCase: DeleteTaskUseCase,
-        updateTaskUseCase: UpdateTaskUseCase
+        updateTaskUseCase: UpdateTaskUseCase,
+        completeTaskUseCase: CompleteTaskUseCase
     ) {
         this.createTaskUseCase = createTaskUseCase;
         this.getTaskByIdUseCase = getTaskByIdUseCase;
@@ -37,6 +40,7 @@ export class TaskController {
         this.getTaskByTypeUseCase = getTaskByTypeUseCase;
         this.deleteTaskUseCase = deleteTaskUseCase;
         this.updateTaskUseCase = updateTaskUseCase;
+        this.completeTaskUseCase = completeTaskUseCase;
     }
 
     async createTask(req: Request, res: Response, next: NextFunction): Promise<void>{
@@ -107,4 +111,15 @@ export class TaskController {
             next(error);
         }
     }
+
+    async completeTask(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+        const taskId: number = Number(req.params.id);
+        const userId: number = (req as any).user.userId;
+        const task = await this.completeTaskUseCase.execute(taskId, userId);
+        res.status(HttpStatusCode.OK).json({ message: TaskSuccessMessages.TASK_COMPLETED, task });
+    } catch (error) {
+        next(error);
+    }
+}
 }
