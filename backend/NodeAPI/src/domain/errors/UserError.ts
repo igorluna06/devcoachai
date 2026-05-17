@@ -65,7 +65,7 @@ export class InvalidPasswordError extends Error {
   getErrorCode(): string { return this.code; }
 }
 
-export class UserNotFound extends Error {
+export class UserNotFoundError extends Error {
   private statusCode: number;
   private code: string;
   constructor() {

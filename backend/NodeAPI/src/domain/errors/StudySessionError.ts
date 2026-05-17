@@ -1,6 +1,6 @@
 import { STUDY_SESSION_ERROR_CODES, STUDY_SESSION_ERROR_MESSAGES } from "../constants/StudySessionConstants";
 
-export class InvalidMinutesStudied extends Error {
+export class InvalidMinutesStudiedError extends Error {
     private statusCode: number;
     private code: string;
     constructor() {
@@ -13,7 +13,7 @@ export class InvalidMinutesStudied extends Error {
     getErrorCode(): string { return this.code; }
 }
 
-export class InvalidTasksCompleted extends Error {
+export class InvalidTasksCompletedError extends Error {
     private statusCode: number;
     private code: string;
     constructor() {
@@ -26,7 +26,7 @@ export class InvalidTasksCompleted extends Error {
     getErrorCode(): string { return this.code; }
 }
 
-export class StudySessionNotFound extends Error {
+export class StudySessionNotFoundError extends Error {
     private statusCode: number;
     private code: string;
     constructor() {

@@ -2,7 +2,7 @@ import { StudyPlan } from "../../../domain/entities/StudyPlan";
 import { IStudyPlanRepository } from "../../../domain/repositories/IStudyPlanRepository";
 import { UpdateStudyPlanDTO } from "../../DTOs/studyPlan/UpdateStudyPlanDTO";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
-import { StudyPlanNotFound } from "../../../domain/errors/StudyPlanError";
+import { StudyPlanNotFoundError } from "../../../domain/errors/StudyPlanError";
 import { validateTitle } from "../../../utils/validators/titleValidator";
 import { validateDescription } from "../../../utils/validators/descriptionValidator";
 
@@ -22,7 +22,7 @@ export class UpdateStudyPlanUseCase {
 
         const studyPlan = await this.studyPlanRepository.findById(data.studyPlanId);
         if (!studyPlan) {
-            throw new StudyPlanNotFound();
+            throw new StudyPlanNotFoundError();
         }
 
         if (data.title !== undefined) {
@@ -45,7 +45,7 @@ export class UpdateStudyPlanUseCase {
 
         const updatedStudyPlan = await this.studyPlanRepository.update(studyPlan);
         if (!updatedStudyPlan) {
-            throw new StudyPlanNotFound();
+            throw new StudyPlanNotFoundError();
         }
 
         return updatedStudyPlan;

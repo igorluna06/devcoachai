@@ -1,7 +1,7 @@
 import { StudyPlan } from "../../../domain/entities/StudyPlan";
 import { StudyPlanAlreadyExistsError } from "../../../domain/errors/StudyPlanError";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
-import { UserNotFound } from "../../../domain/errors/UserError";
+import { UserNotFoundError } from "../../../domain/errors/UserError";
 import { IStudyPlanRepository } from "../../../domain/repositories/IStudyPlanRepository";
 import { IUserRepository } from "../../../domain/repositories/IUserRepository";
 import { validateLanguage } from "../../../utils/validators/languageValidator";
@@ -32,7 +32,7 @@ export class CreateStudyPlanUseCase {
 
         const userFound = await this.userRepository.findById(data.userId);
         if (!userFound) {
-            throw new UserNotFound();
+            throw new UserNotFoundError();
         }
 
         validateTitle(data.title);

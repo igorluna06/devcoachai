@@ -1,4 +1,4 @@
-import { StudyPlanNotFound } from "../../../domain/errors/StudyPlanError";
+import { StudyPlanNotFoundError } from "../../../domain/errors/StudyPlanError";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IStudyPlanRepository } from "../../../domain/repositories/IStudyPlanRepository";
 
@@ -19,7 +19,7 @@ export class DeleteStudyPlanUseCase{
         const studyPlanFound = await this.studyPlanRepository.findById(id);
 
         if(!studyPlanFound){
-            throw new StudyPlanNotFound();
+            throw new StudyPlanNotFoundError();
         }
 
         await this.studyPlanRepository.delete(id);

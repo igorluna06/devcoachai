@@ -1,5 +1,5 @@
 import { User } from "../../../domain/entities/User";
-import { UserNotFound } from "../../../domain/errors/UserError";
+import { UserNotFoundError } from "../../../domain/errors/UserError";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IUserRepository } from "../../../domain/repositories/IUserRepository";
 import { isValidDate } from "../../../utils/validators/dateValidator";
@@ -25,7 +25,7 @@ export class UpdateUserUseCase{
         const userFound: User | null = await this.userRepository.findById(userData.id);
 
         if(!userFound){
-            throw new UserNotFound();
+            throw new UserNotFoundError();
         }
 
         if(!userData.name && !userData.email && !userData.birthDate){
@@ -50,7 +50,7 @@ export class UpdateUserUseCase{
         const updatedUser = await this.userRepository.update(userFound);
 
         if(!updatedUser){
-            throw new UserNotFound();
+            throw new UserNotFoundError();
         }
 
         return updatedUser;

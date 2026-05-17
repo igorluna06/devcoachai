@@ -1,6 +1,6 @@
 import { CERTIFICATE_ERROR_CODES, CERTIFICATE_ERROR_MESSAGES } from "../constants/CertificateConstants";
 
-export class InvalidUrl extends Error {
+export class InvalidUrlError extends Error {
     private statusCode: number;
     private code: string;
     constructor() {
@@ -13,7 +13,7 @@ export class InvalidUrl extends Error {
     getErrorCode(): string { return this.code; }
 }
 
-export class CertificateNotFound extends Error {
+export class CertificateNotFoundError extends Error {
     private statusCode: number;
     private code: string;
     constructor() {

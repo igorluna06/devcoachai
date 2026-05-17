@@ -1,6 +1,6 @@
 import { ACHIEVEMENT_ERROR_CODES, ACHIEVEMENT_ERROR_MESSAGES } from "../constants/AchievementConstants";
 
-export class InvalidAchievementType extends Error {
+export class InvalidAchievementTypeError extends Error {
     private statusCode: number;
     private code: string;
     constructor() {
@@ -13,7 +13,7 @@ export class InvalidAchievementType extends Error {
     getErrorCode(): string { return this.code; }
 }
 
-export class AchievementNotFound extends Error {
+export class AchievementNotFoundError extends Error {
     private statusCode: number;
     private code: string;
     constructor() {

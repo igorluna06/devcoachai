@@ -1,5 +1,5 @@
 import { Certificate } from "../../../domain/entities/Certificate";
-import { CertificateNotFound } from "../../../domain/errors/CertificateError";
+import { CertificateNotFoundError } from "../../../domain/errors/CertificateError";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { ICertificateRepository } from "../../../domain/repositories/ICertificateRepository";
 
@@ -11,7 +11,7 @@ export class GetCertificateByIdUseCase {
     async execute(id: number): Promise<Certificate> {
         if (!id || id <= 0) throw new InvalidIdError();
         const certificate = await this.certificateRepository.findById(id);
-        if (!certificate) throw new CertificateNotFound();
+        if (!certificate) throw new CertificateNotFoundError();
         return certificate;
     }
 }

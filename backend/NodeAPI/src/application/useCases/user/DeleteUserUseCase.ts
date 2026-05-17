@@ -1,4 +1,4 @@
-import { UserNotFound } from "../../../domain/errors/UserError";
+import { UserNotFoundError } from "../../../domain/errors/UserError";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IUserRepository } from "../../../domain/repositories/IUserRepository";
 
@@ -19,7 +19,7 @@ export class DeleteUserUseCase{
         const userFound = await this.userRepository.findById(userId);
         
         if(!userFound){
-            throw new UserNotFound();
+            throw new UserNotFoundError();
         }
 
         await this.userRepository.delete(userId);

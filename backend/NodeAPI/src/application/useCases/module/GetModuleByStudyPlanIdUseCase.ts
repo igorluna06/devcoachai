@@ -1,5 +1,5 @@
 import { Module } from "../../../domain/entities/Module";
-import { StudyPlanNotFound } from "../../../domain/errors/StudyPlanError";
+import { StudyPlanNotFoundError } from "../../../domain/errors/StudyPlanError";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IModuleRepository } from "../../../domain/repositories/IModuleRepository";
 import { IStudyPlanRepository } from "../../../domain/repositories/IStudyPlanRepository";
@@ -23,7 +23,7 @@ export class GetModuleByStudyPlanIdUseCase {
         const studyPlan = await this.studyPlanRepository.findById(studyPlanId);
 
         if (!studyPlan) {
-            throw new StudyPlanNotFound();
+            throw new StudyPlanNotFoundError();
         }
 
         return this.moduleRepository.findByStudyPlanId(studyPlanId);

@@ -1,5 +1,5 @@
 import { Module } from "../../../domain/entities/Module";
-import { ModuleNotFound } from "../../../domain/errors/ModuleError";
+import { ModuleNotFoundError } from "../../../domain/errors/ModuleError";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IModuleRepository } from "../../../domain/repositories/IModuleRepository";
 import { validateTitle } from "../../../utils/validators/titleValidator";
@@ -22,7 +22,7 @@ export class UpdateModuleUseCase {
 
         const module = await this.moduleRepository.findById(data.moduleId);
         if (!module) {
-            throw new ModuleNotFound();
+            throw new ModuleNotFoundError();
         }
 
         if (data.title !== undefined) {
@@ -45,7 +45,7 @@ export class UpdateModuleUseCase {
 
         const updatedModule = await this.moduleRepository.update(module);
         if (!updatedModule) {
-            throw new ModuleNotFound();
+            throw new ModuleNotFoundError();
         }
 
         return updatedModule;

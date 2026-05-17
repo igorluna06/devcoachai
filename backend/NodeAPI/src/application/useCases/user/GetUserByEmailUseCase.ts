@@ -1,5 +1,5 @@
 import { User } from "../../../domain/entities/User";
-import { InvalidEmailError, UserNotFound } from "../../../domain/errors/UserError";
+import { InvalidEmailError, UserNotFoundError } from "../../../domain/errors/UserError";
 import { IUserRepository } from "../../../domain/repositories/IUserRepository";
 import { validateEmail } from "../../../utils/validators/emailValidator";
 
@@ -20,7 +20,7 @@ export class GetUserByEmailUseCase{
             const userFound = await this.userRepository.findByEmail(email);
     
             if(!userFound){
-                throw new UserNotFound();
+                throw new UserNotFoundError();
             }
     
             return userFound;

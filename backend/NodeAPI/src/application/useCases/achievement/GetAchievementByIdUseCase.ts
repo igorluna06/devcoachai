@@ -1,5 +1,5 @@
 import { Achievement } from "../../../domain/entities/Achievement";
-import { AchievementNotFound} from "../../../domain/errors/AchievementError";
+import { AchievementNotFoundError} from "../../../domain/errors/AchievementError";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IAchievementRepository } from "../../../domain/repositories/IAchievementRepository";
 
@@ -15,7 +15,7 @@ export class GetAchievementByIdUseCase {
         if (!id || id <= 0) throw new InvalidIdError();
 
         const achievement = await this.achievementRepository.findById(id);
-        if (!achievement) throw new AchievementNotFound();
+        if (!achievement) throw new AchievementNotFoundError();
 
         return achievement;
     }

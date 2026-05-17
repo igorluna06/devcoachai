@@ -1,9 +1,9 @@
 import { Certificate } from "../../../domain/entities/Certificate";
-import { UserNotFound } from "../../../domain/errors/UserError";
+import { UserNotFoundError } from "../../../domain/errors/UserError";
 import { ICertificateRepository } from "../../../domain/repositories/ICertificateRepository";
 import { IUserRepository } from "../../../domain/repositories/IUserRepository";
 import { IStudyPlanRepository } from "../../../domain/repositories/IStudyPlanRepository";
-import { StudyPlanNotFound } from "../../../domain/errors/StudyPlanError";
+import { StudyPlanNotFoundError } from "../../../domain/errors/StudyPlanError";
 import { CreateCertificateDTO } from "../../DTOs/certificate/CreateCertificateDTO";
 import { MissingRequiredFieldsError } from "../../errors/MissingRequiredFieldsError";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
@@ -32,10 +32,10 @@ export class CreateCertificateUseCase {
         if (!Number.isInteger(data.userId) || data.userId <= 0) throw new InvalidIdError();
 
         const user = await this.userRepository.findById(data.userId);
-        if (!user) throw new UserNotFound();
+        if (!user) throw new UserNotFoundError();
 
         const studyPlan = await this.studyPlanRepository.findById(data.studyPlanId);
-        if (!studyPlan) throw new StudyPlanNotFound();
+        if (!studyPlan) throw new StudyPlanNotFoundError();
 
         return this.certificateRepository.create(
             Certificate.create(data.title, data.userId, data.studyPlanId)

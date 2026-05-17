@@ -1,6 +1,6 @@
 import { Task } from "../../../domain/entities/Task";
-import { ModuleNotFound } from "../../../domain/errors/ModuleError";
-import { TaskNotFound } from "../../../domain/errors/TaskError";
+import { ModuleNotFoundError } from "../../../domain/errors/ModuleError";
+import { TaskNotFoundError } from "../../../domain/errors/TaskError";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IModuleRepository } from "../../../domain/repositories/IModuleRepository";
 import { ITaskRepository } from "../../../domain/repositories/ITaskRepository";
@@ -24,13 +24,13 @@ export class GetTaskByModuleIdUseCase{
         const module = await this.moduleRepository.findById(moduleId);
 
         if(!module){
-            throw new ModuleNotFound();
+            throw new ModuleNotFoundError();
         }
 
         const task = await this.taskRepository.findByModuleId(moduleId);
 
         if(!task){
-            throw new TaskNotFound();
+            throw new TaskNotFoundError();
         }
 
         return task;

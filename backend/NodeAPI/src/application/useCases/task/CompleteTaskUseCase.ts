@@ -1,5 +1,5 @@
 import { Task } from "../../../domain/entities/Task";
-import { TaskNotFound } from "../../../domain/errors/TaskError";
+import { TaskNotFoundError } from "../../../domain/errors/TaskError";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { ITaskRepository } from "../../../domain/repositories/ITaskRepository";
 import { IModuleRepository } from "../../../domain/repositories/IModuleRepository";
@@ -42,7 +42,7 @@ export class CompleteTaskUseCase {
         if (!userId || userId <= 0) throw new InvalidIdError();
 
         const task = await this.taskRepository.findById(taskId);
-        if (!task) throw new TaskNotFound();
+        if (!task) throw new TaskNotFoundError();
 
         task.complete();
         await this.taskRepository.update(task);

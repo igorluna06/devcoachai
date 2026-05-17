@@ -13,7 +13,7 @@ export class InvalidOrderError extends Error {
     getErrorCode(): string { return this.code; }
 }
 
-export class ModuleNotFound extends Error {
+export class ModuleNotFoundError extends Error {
     private statusCode: number;
     private code: string;
     constructor() {

@@ -1,5 +1,5 @@
 import { StudySession } from "../../../domain/entities/StudySession";
-import { UserNotFound } from "../../../domain/errors/UserError";
+import { UserNotFoundError } from "../../../domain/errors/UserError";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IStudySessionRepository } from "../../../domain/repositories/IStudySessionRepository";
 import { IUserRepository } from "../../../domain/repositories/IUserRepository";
@@ -23,7 +23,7 @@ export class GetStudySessionByUserIdUseCase{
         const user = await this.userRepository.findById(userId);
 
         if(!user){
-            throw new UserNotFound();
+            throw new UserNotFoundError();
         }
 
         const studySessions = await this.studySessionRepository.findByUserId(userId);

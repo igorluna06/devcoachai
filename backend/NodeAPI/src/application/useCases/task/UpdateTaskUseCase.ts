@@ -1,5 +1,5 @@
 import { Task } from "../../../domain/entities/Task";
-import { InvalidEstimatedMinutesError, TaskNotFound } from "../../../domain/errors/TaskError";
+import { InvalidEstimatedMinutesError, TaskNotFoundError } from "../../../domain/errors/TaskError";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { ITaskRepository } from "../../../domain/repositories/ITaskRepository";
 import { validateDescription } from "../../../utils/validators/descriptionValidator";
@@ -23,7 +23,7 @@ export class UpdateTaskUseCase{
         const taskFound = await this.taskRepository.findById(data.taskId);
 
         if(!taskFound){
-            throw new TaskNotFound();
+            throw new TaskNotFoundError();
         }
 
         if(data.title !== undefined){
@@ -51,7 +51,7 @@ export class UpdateTaskUseCase{
         const updatedTask = await this.taskRepository.update(taskFound);
 
         if(!updatedTask){
-            throw new TaskNotFound();
+            throw new TaskNotFoundError();
         }
 
         return updatedTask;

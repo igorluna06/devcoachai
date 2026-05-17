@@ -1,5 +1,5 @@
 import { IUserRepository } from "../../../domain/repositories/IUserRepository";
-import { InvalidOldPasswordError, SamePasswordError, UserNotFound } from "../../../domain/errors/UserError";
+import { InvalidOldPasswordError, SamePasswordError, UserNotFoundError } from "../../../domain/errors/UserError";
 import { MissingRequiredFieldsError } from "../../errors/MissingRequiredFieldsError";
 import { UpdatePasswordDTO } from "../../DTOs/user/UpdatePasswordDTO";
 
@@ -17,7 +17,7 @@ export class UpdatePasswordUseCase {
 
         const user = await this.userRepository.findById(data.userId);
         if (!user) {
-            throw new UserNotFound();
+            throw new UserNotFoundError();
         }
 
         const passwordMatch = await user.checkPassword(data.oldPassword);

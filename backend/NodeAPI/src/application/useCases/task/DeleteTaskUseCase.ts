@@ -1,4 +1,4 @@
-import { TaskNotFound } from "../../../domain/errors/TaskError";
+import { TaskNotFoundError } from "../../../domain/errors/TaskError";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { ITaskRepository } from "../../../domain/repositories/ITaskRepository";
 
@@ -19,7 +19,7 @@ export class DeleteTaskUseCase{
         const taskFound = await this.taskRepository.findById(id);
 
         if(!taskFound){
-            throw new TaskNotFound();
+            throw new TaskNotFoundError();
         }
 
         await this.taskRepository.delete(id);

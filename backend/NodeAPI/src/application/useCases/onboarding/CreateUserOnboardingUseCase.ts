@@ -1,6 +1,6 @@
 import { UserOnboarding } from "../../../domain/entities/UserOnboarding";
 import { OnboardingAlreadyExistsError } from "../../../domain/errors/OnboardingError";
-import { UserNotFound } from "../../../domain/errors/UserError";
+import { UserNotFoundError } from "../../../domain/errors/UserError";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IUserOnboardingRepository } from "../../../domain/repositories/IUserOnboardingRepository";
 import { IUserRepository } from "../../../domain/repositories/IUserRepository";
@@ -26,7 +26,7 @@ export class CreateUserOnboardingUseCase {
         if (!Number.isInteger(data.userId) || data.userId <= 0) throw new InvalidIdError();
 
         const user = await this.userRepository.findById(data.userId);
-        if (!user) throw new UserNotFound();
+        if (!user) throw new UserNotFoundError();
 
         const existingOnboarding = await this.onboardingRepository.findByUserId(data.userId);
         if (existingOnboarding) throw new OnboardingAlreadyExistsError();

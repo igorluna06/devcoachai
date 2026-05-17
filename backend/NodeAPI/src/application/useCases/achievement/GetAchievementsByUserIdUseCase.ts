@@ -1,6 +1,6 @@
 import { Achievement } from "../../../domain/entities/Achievement";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
-import { UserNotFound } from "../../../domain/errors/UserError";
+import { UserNotFoundError } from "../../../domain/errors/UserError";
 import { IAchievementRepository } from "../../../domain/repositories/IAchievementRepository";
 import { IUserRepository } from "../../../domain/repositories/IUserRepository";
 
@@ -18,7 +18,7 @@ export class GetAchievementsByUserIdUseCase {
         if (!userId || userId <= 0) throw new InvalidIdError();
 
         const user = await this.userRepository.findById(userId);
-        if (!user) throw new UserNotFound();
+        if (!user) throw new UserNotFoundError();
 
         return this.achievementRepository.findByUserId(userId);
     }

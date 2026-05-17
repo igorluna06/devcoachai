@@ -1,5 +1,5 @@
 import { Task } from "../../../domain/entities/Task";
-import { ModuleNotFound } from "../../../domain/errors/ModuleError";
+import { ModuleNotFoundError } from "../../../domain/errors/ModuleError";
 import { InvalidEstimatedMinutesError } from "../../../domain/errors/TaskError";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IModuleRepository } from "../../../domain/repositories/IModuleRepository";
@@ -33,7 +33,7 @@ export class CreateTaskUseCase {
         const module = await this.moduleRepository.findById(data.moduleId);
 
         if (!module) {
-            throw new ModuleNotFound();
+            throw new ModuleNotFoundError();
         }
 
         validateTitle(data.title);

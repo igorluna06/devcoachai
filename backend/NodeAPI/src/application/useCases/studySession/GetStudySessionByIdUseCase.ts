@@ -1,5 +1,5 @@
 import { StudySession } from "../../../domain/entities/StudySession";
-import { StudySessionNotFound } from "../../../domain/errors/StudySessionError";
+import { StudySessionNotFoundError } from "../../../domain/errors/StudySessionError";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IStudySessionRepository } from "../../../domain/repositories/IStudySessionRepository";
 
@@ -20,7 +20,7 @@ export class GetStudySessionByIdUseCase{
         const studySessionFound = await this.studySessionRepository.findById(id);
 
         if(!studySessionFound){
-            throw new StudySessionNotFound();
+            throw new StudySessionNotFoundError();
         }
 
         return studySessionFound;

@@ -1,4 +1,4 @@
-import { StudySessionNotFound } from "../../../domain/errors/StudySessionError";
+import { StudySessionNotFoundError } from "../../../domain/errors/StudySessionError";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IStudySessionRepository } from "../../../domain/repositories/IStudySessionRepository";
 
@@ -18,7 +18,7 @@ export class DeleteStudySessionUseCase{
         const studySession = await this.studySessionRepository.findById(id);
 
         if(!studySession){
-            throw new StudySessionNotFound();
+            throw new StudySessionNotFoundError();
         }
 
         await this.studySessionRepository.delete(id);

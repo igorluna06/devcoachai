@@ -1,5 +1,5 @@
 import { Certificate } from "../../../domain/entities/Certificate";
-import { UserNotFound } from "../../../domain/errors/UserError";
+import { UserNotFoundError } from "../../../domain/errors/UserError";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { ICertificateRepository } from "../../../domain/repositories/ICertificateRepository";
 import { IUserRepository } from "../../../domain/repositories/IUserRepository";
@@ -14,7 +14,7 @@ export class GetCertificatesByUserIdUseCase {
     async execute(userId: number): Promise<Certificate[]> {
         if (!userId || userId <= 0) throw new InvalidIdError();
         const user = await this.userRepository.findById(userId);
-        if (!user) throw new UserNotFound();
+        if (!user) throw new UserNotFoundError();
         return this.certificateRepository.findByUserId(userId);
     }
 }

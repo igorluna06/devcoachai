@@ -26,7 +26,7 @@ export class StudyPlanAlreadyExistsError extends Error {
     getErrorCode(): string { return this.code; }
 }
 
-export class StudyPlanNotFound extends Error {
+export class StudyPlanNotFoundError extends Error {
     private statusCode: number;
     private code: string;
     constructor() {

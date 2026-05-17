@@ -1,4 +1,4 @@
-import { ModuleNotFound } from "../../../domain/errors/ModuleError";
+import { ModuleNotFoundError } from "../../../domain/errors/ModuleError";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IModuleRepository } from "../../../domain/repositories/IModuleRepository";
 
@@ -19,7 +19,7 @@ export class DeleteModuleUseCase {
         const module = await this.moduleRepository.findById(id);
 
         if (!module) {
-            throw new ModuleNotFound();
+            throw new ModuleNotFoundError();
         }
 
         await this.moduleRepository.delete(id);

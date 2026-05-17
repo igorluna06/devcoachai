@@ -1,6 +1,6 @@
 import { Achievement } from "../../../domain/entities/Achievement";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
-import { UserNotFound } from "../../../domain/errors/UserError";
+import { UserNotFoundError } from "../../../domain/errors/UserError";
 import { IAchievementRepository } from "../../../domain/repositories/IAchievementRepository";
 import { IUserRepository } from "../../../domain/repositories/IUserRepository";
 import { CreateAchievementDTO } from "../../DTOs/achievement/CreateAchievementDTO";
@@ -27,7 +27,7 @@ export class CreateAchievementUseCase {
         }
 
         const user = await this.userRepository.findById(data.userId);
-        if (!user) throw new UserNotFound();
+        if (!user) throw new UserNotFoundError();
 
         return this.achievementRepository.create(
             Achievement.create(data.title, data.description, data.type, data.userId)

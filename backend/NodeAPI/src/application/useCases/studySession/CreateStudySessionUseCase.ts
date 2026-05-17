@@ -1,6 +1,6 @@
 import { StudySession } from "../../../domain/entities/StudySession";
-import { InvalidMinutesStudied, InvalidTasksCompleted } from "../../../domain/errors/StudySessionError";
-import { UserNotFound } from "../../../domain/errors/UserError";
+import { InvalidMinutesStudiedError, InvalidTasksCompletedError } from "../../../domain/errors/StudySessionError";
+import { UserNotFoundError } from "../../../domain/errors/UserError";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IStudySessionRepository } from "../../../domain/repositories/IStudySessionRepository";
 import { IUserRepository } from "../../../domain/repositories/IUserRepository";
@@ -33,15 +33,15 @@ export class CreateStudySessionUseCase{
         const userFound = await this.userRepository.findById(data.userId);
 
         if(!userFound){
-            throw new UserNotFound();
+            throw new UserNotFoundError();
         }
 
         if(data.minutesStudied <= 0){
-            throw new InvalidMinutesStudied();
+            throw new InvalidMinutesStudiedError();
         }
 
         if (data.tasksCompleted < 0){
-            throw new InvalidTasksCompleted();
+            throw new InvalidTasksCompletedError();
         }         
 
         return this.studySessionRepository.create(StudySession.create(

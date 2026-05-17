@@ -1,8 +1,8 @@
 import { AchievementType } from "../../domain/enums/AchievementType";
-import { InvalidAchievementType } from "../../domain/errors/AchievementError";
+import { InvalidAchievementTypeError } from "../../domain/errors/AchievementError";
 
 export function validateAchievementType(type: string): void {
     if (!Object.values(AchievementType).includes(type as AchievementType)) {
-        throw new InvalidAchievementType();
+        throw new InvalidAchievementTypeError();
     }
 }
