@@ -2,7 +2,6 @@ import { comparePassword, hashPassword } from "../../utils/helper/hashHelper";
 import { validateEmail } from "../../utils/validators/emailValidator";
 import { validateName } from "../../utils/validators/nameValidator";
 import { validatePassword } from "../../utils/validators/passwordValidator";
-import { USER_LABELS } from "../constants/UserConstants";
 import { InvalidBirthDateError, InvalidEmailError} from "../errors/UserError";
 
 export class User{

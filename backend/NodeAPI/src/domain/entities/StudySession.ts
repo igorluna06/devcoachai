@@ -1,4 +1,4 @@
-import { InvalidMinutesStudied,InvalidTasksCompleted } from "../errors/StudySessionError";
+import { InvalidMinutesStudiedError,InvalidTasksCompletedError } from "../errors/StudySessionError";
 
 export class StudySession {
 
@@ -23,8 +23,8 @@ export class StudySession {
     }
 
     static create(minutesStudied: number, tasksCompleted: number, userId: number): StudySession {
-        if (minutesStudied <= 0) throw new InvalidMinutesStudied();
-        if (tasksCompleted < 0) throw new InvalidTasksCompleted();
+        if (minutesStudied <= 0) throw new InvalidMinutesStudiedError();
+        if (tasksCompleted < 0) throw new InvalidTasksCompletedError();
         return new StudySession(minutesStudied, tasksCompleted, userId);
     }
 

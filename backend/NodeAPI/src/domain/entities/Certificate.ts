@@ -1,6 +1,5 @@
 import { validateTitle } from "../../utils/validators/titleValidator";
 import { validateUrl } from "../../utils/validators/urlValidator";
-import { InvalidUrl } from "../errors/CertificateError";
 
 export class Certificate {
 
