@@ -11,5 +11,9 @@ public class ExceptionConstants {
     public static final String USER_NOT_FOUND_MESSAGE = "Usuário não encontrado.";
     public static final String USER_NOT_FOUND_CODE = "USER_NOT_FOUND";
 
+    public static final String INTERNAL_SERVER_ERROR_MESSAGE = "Erro interno do servidor.";
+    public static final String ERROR_KEY = "error";
+    public static final String CODE_KEY = "code";
+
     private ExceptionConstants() {}
 }
