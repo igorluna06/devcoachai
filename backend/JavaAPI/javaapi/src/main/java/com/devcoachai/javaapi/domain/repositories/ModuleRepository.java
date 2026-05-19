@@ -1,5 +1,5 @@
 package com.devcoachai.javaapi.domain.repositories;
-
+import com.devcoachai.javaapi.domain.entities.Module;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;
