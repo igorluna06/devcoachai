@@ -147,7 +147,7 @@ npm run start:dev
 - [x] Conquistas e Certificados
 - [x] Onboarding inteligente
 - [ ] Integração com IA
-- [ ] Serviço Java
+- [X] Serviço Java
 - [ ] Frontend
 
 ---
