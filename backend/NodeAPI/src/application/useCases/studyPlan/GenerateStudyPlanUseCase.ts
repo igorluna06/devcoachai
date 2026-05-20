@@ -1,4 +1,4 @@
-import { generateContent } from "../../../utils/helper/geminiHelper";
+import { generateContent } from "../../../utils/helper/groqHelper";
 import { IStudyPlanRepository } from "../../../domain/repositories/IStudyPlanRepository";
 import { IModuleRepository } from "../../../domain/repositories/IModuleRepository";
 import { ITaskRepository } from "../../../domain/repositories/ITaskRepository";
