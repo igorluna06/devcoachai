@@ -5,6 +5,7 @@ import { studyPlanController } from "../../middlewares/studyPlan/studyPlanFactor
 const router = Router();
 
 router.post(studyPlanEndpoints.ROOT, (req, res, next) => studyPlanController.createStudyPlan(req, res, next));
+router.post(studyPlanEndpoints.GENERATE, (req, res, next) => studyPlanController.generateStudyPlan(req, res, next));
 router.get(studyPlanEndpoints.BY_ID, (req, res, next) => studyPlanController.getStudyPlanById(req, res, next));
 router.get(studyPlanEndpoints.ROOT, (req, res, next) => studyPlanController.getAllStudyPlan(req, res, next));
 router.get(studyPlanEndpoints.BY_USER_ID, (req, res, next) => studyPlanController.getStudyPlanByUserId(req, res, next));

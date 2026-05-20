@@ -8,6 +8,7 @@ import { GetAllStudyPlanUseCase } from "../../../application/useCases/studyPlan/
 import { DeleteStudyPlanUseCase } from "../../../application/useCases/studyPlan/DeleteStudyPlanUseCase";
 import { UpdateStudyPlanUseCase } from "../../../application/useCases/studyPlan/updateStudyPlanUseCase";
 import { GetStudyPlanByUserIdUseCase } from "../../../application/useCases/studyPlan/GetStudyPlanByUserIdUseCase";
+import { GenerateStudyPlanUseCase } from "../../../application/useCases/studyPlan/GenerateStudyPlanUseCase";
 
 export class StudyPlanController{
 
@@ -17,6 +18,7 @@ export class StudyPlanController{
     private deleteStudyPlanUseCase: DeleteStudyPlanUseCase;
     private updateStudyPlanUseCase: UpdateStudyPlanUseCase;
     private getStudyPlanByUserIdUseCase: GetStudyPlanByUserIdUseCase;
+    private generateStudyPlanUseCase: GenerateStudyPlanUseCase;
 
     constructor(
         createStudyPlanUseCase: CreateStudyPlanUseCase,
@@ -24,7 +26,8 @@ export class StudyPlanController{
         getAllStudyPlanUseCase: GetAllStudyPlanUseCase,
         deleteStudyPlanUseCase: DeleteStudyPlanUseCase,
         updateStudyPlanUseCase: UpdateStudyPlanUseCase,
-        getStudyPlanByUserIdUseCase: GetStudyPlanByUserIdUseCase
+        getStudyPlanByUserIdUseCase: GetStudyPlanByUserIdUseCase,
+        generateStudyPlanUseCase: GenerateStudyPlanUseCase
     ){
         this.createStudyPlanUseCase = createStudyPlanUseCase;
         this.getStudyPlanByIdUseCase = getStudyPlanByIdUseCase;
@@ -32,6 +35,7 @@ export class StudyPlanController{
         this.deleteStudyPlanUseCase = deleteStudyPlanUseCase;
         this.updateStudyPlanUseCase = updateStudyPlanUseCase;
         this.getStudyPlanByUserIdUseCase = getStudyPlanByUserIdUseCase;
+        this.generateStudyPlanUseCase = generateStudyPlanUseCase;
     }
 
     async createStudyPlan(req: Request, res: Response, next: NextFunction): Promise<void>{
@@ -39,6 +43,16 @@ export class StudyPlanController{
             const data: CreateStudyPlanDTO = req.body;
             const newStudyPlan = await this.createStudyPlanUseCase.execute(data);
             res.status(HttpStatusCode.CREATED).json({message: StudyPlanSucessMessages.STUDY_PLAN_CREATED, user: newStudyPlan});
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async generateStudyPlan(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const data = req.body;
+            const studyPlan = await this.generateStudyPlanUseCase.execute(data);
+            res.status(HttpStatusCode.CREATED).json({ message: StudyPlanSucessMessages.STUDY_PLAN_CREATED, studyPlan });
         } catch (error) {
             next(error);
         }
