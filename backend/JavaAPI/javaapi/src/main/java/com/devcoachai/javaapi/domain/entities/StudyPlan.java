@@ -10,18 +10,19 @@ public class StudyPlan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
-
+    @Column(name = "title")
     private String title;
-
+    @Column(name = "level")
     @Enumerated(EnumType.STRING)
     private Level level;
-
+    @Column(name = "language")
     @Enumerated(EnumType.STRING)
     private Language language;
-
-
+    @Column(name = "isActive")
     private boolean isActive;
+    @Column(name = "userId")
     private Integer userId;
 
     public StudyPlan(){}

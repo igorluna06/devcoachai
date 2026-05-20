@@ -4,16 +4,20 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "\"Module\"")
+@Table(name = "Module")
 public class Module {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
-
+    @Column(name = "title")
     private String title;
+    @Column(name = "isCompleted")
     private boolean isCompleted;
+    @Column(name = "order")
     private Integer order;
+    @Column(name = "studyPlanId")
     private Integer studyPlanId;
 
     public Module(){}

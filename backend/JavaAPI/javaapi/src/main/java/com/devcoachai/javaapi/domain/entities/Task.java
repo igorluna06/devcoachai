@@ -10,18 +10,19 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
-
+    @Column(name = "title")
     private String title;
-
+    @Column(name = "type")
     @Enumerated(EnumType.STRING)
     private TaskType type;
-
+    @Column(name = "isCompleted")
     private boolean isCompleted;
-
+    @Column(name = "difficultyRating")
     @Enumerated(EnumType.STRING)
     private DifficultyRating difficultyRating;
-
+    @Column(name = "moduleId")
     private Integer moduleId;
 
     public Task(){}
