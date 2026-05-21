@@ -5,9 +5,10 @@ import { ModuleSuccessMessages } from "../../constants/SucessMessages";
 import { HttpStatusCode } from "../../constants/HttpStatusCode";
 import { GetModuleByIdUseCase } from "../../../application/useCases/module/GetModuleByIdUseCase";
 import { GetAllModuleUseCase } from "../../../application/useCases/module/GetAllModuleUseCase";
-import { DeleteModuleUseCase } from "../../../application/useCases/module/deleteModuleUseCase";
+import { DeleteModuleUseCase } from "../../../application/useCases/module/DeleteModuleUseCase";
 import { GetModuleByStudyPlanIdUseCase } from "../../../application/useCases/module/GetModuleByStudyPlanIdUseCase";
 import { UpdateModuleUseCase } from "../../../application/useCases/module/UpdateModuleUseCase";
+import { GenerateModulesUseCase } from "../../../application/useCases/module/GenerateModulesUseCase";
 
 export class ModuleController {
     
@@ -17,6 +18,7 @@ export class ModuleController {
     private deleteModuleUseCase: DeleteModuleUseCase;
     private getModuleByStudyPlanIdUseCase: GetModuleByStudyPlanIdUseCase;
     private updateModuleUseCase: UpdateModuleUseCase;
+    private generateModulesUseCase: GenerateModulesUseCase;
 
     constructor(
         createModuleUseCase: CreateModuleUseCase,
@@ -24,7 +26,8 @@ export class ModuleController {
         getAllModulesUseCase: GetAllModuleUseCase,
         deleteModuleUseCase: DeleteModuleUseCase,
         getModuleByStudyPlanIdUseCase: GetModuleByStudyPlanIdUseCase,
-        updateModuleUseCase: UpdateModuleUseCase
+        updateModuleUseCase: UpdateModuleUseCase,
+        generateModulesUseCase: GenerateModulesUseCase
     ) {
         this.createModuleUseCase = createModuleUseCase;
         this.getModuleByIdUseCase = getModuleByIdUseCase;
@@ -32,6 +35,7 @@ export class ModuleController {
         this.deleteModuleUseCase = deleteModuleUseCase;
         this.getModuleByStudyPlanIdUseCase = getModuleByStudyPlanIdUseCase;
         this.updateModuleUseCase = updateModuleUseCase;
+        this.generateModulesUseCase = generateModulesUseCase;
     }
 
     async createModule(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -44,6 +48,16 @@ export class ModuleController {
             next(error);
         }
 
+    }
+
+    async generateModules(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const studyPlanId: number = Number(req.params.id);
+            const modules = await this.generateModulesUseCase.execute(studyPlanId);
+            res.status(HttpStatusCode.CREATED).json({ message: ModuleSuccessMessages.MODULE_CREATED, modules });
+        } catch (error) {
+            next(error);
+        }
     }
 
     async getModuleById(req: Request, res: Response, next: NextFunction): Promise<void> {

@@ -1,9 +1,11 @@
 import { CreateModuleUseCase } from "../../../application/useCases/module/CreateModuleUseCase";
-import { DeleteModuleUseCase } from "../../../application/useCases/module/deleteModuleUseCase";
+import { DeleteModuleUseCase } from "../../../application/useCases/module/DeleteModuleUseCase";
+import { GenerateModulesUseCase } from "../../../application/useCases/module/GenerateModulesUseCase";
 import { GetAllModuleUseCase } from "../../../application/useCases/module/GetAllModuleUseCase";
 import { GetModuleByIdUseCase } from "../../../application/useCases/module/GetModuleByIdUseCase";
 import { GetModuleByStudyPlanIdUseCase } from "../../../application/useCases/module/GetModuleByStudyPlanIdUseCase";
 import { UpdateModuleUseCase } from "../../../application/useCases/module/UpdateModuleUseCase";
+import { GroqProvider } from "../../../infrastructure/ai/provider/groqProvider";
 import { PrismaModuleRepository } from "../../../infrastructure/repositories/PrismaModuleRepository";
 import { PrismaStudyPlanRepository } from "../../../infrastructure/repositories/PrismaStudyPlanRepository";
 import { ModuleController } from "../../controllers/module/ModuleController";
@@ -17,5 +19,6 @@ export const moduleController = new ModuleController(
     new GetAllModuleUseCase(moduleRepository),
     new DeleteModuleUseCase(moduleRepository),
     new GetModuleByStudyPlanIdUseCase(moduleRepository, studyPlanRepository),
-    new UpdateModuleUseCase(moduleRepository)
+    new UpdateModuleUseCase(moduleRepository),
+    new GenerateModulesUseCase(studyPlanRepository, moduleRepository, new GroqProvider())
 );

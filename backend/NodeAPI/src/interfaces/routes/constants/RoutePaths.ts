@@ -6,5 +6,6 @@ export const RoutePaths = {
     STUDY_SESSION: "/studysession",
     ACHIEVEMENT: "/achievement",
     CERTIFICATE: "/certificate",
-    ONBOARDING: "/onboarding"
+    ONBOARDING: "/onboarding",
+    GENERATE: "/generate"
 } as const;

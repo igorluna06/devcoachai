@@ -4,5 +4,6 @@ import { studyPlanEndpoints } from "../studyPlan/studyPlanEndpoints";
 export const moduleEndpoints = {
     ROOT: "/",
     BY_ID: "/:id",
-    BY_STUDY_PLAN_ID: RoutePaths.STUDY_PLAN + "/:studyPlanId"
+    BY_STUDY_PLAN_ID: RoutePaths.STUDY_PLAN + "/:studyPlanId",
+    GENERATE: RoutePaths.GENERATE
 } as const;
