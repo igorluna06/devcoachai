@@ -5,6 +5,7 @@ import { GetAllStudyPlanUseCase } from "../../../application/useCases/studyPlan/
 import { GetStudyPlanByIdUseCase } from "../../../application/useCases/studyPlan/GetStudyPlanByIdUseCase";
 import { GetStudyPlanByUserIdUseCase } from "../../../application/useCases/studyPlan/GetStudyPlanByUserIdUseCase";
 import { UpdateStudyPlanUseCase } from "../../../application/useCases/studyPlan/updateStudyPlanUseCase";
+import { GroqProvider } from "../../../infrastructure/ai/provider/groqProvider";
 import { PrismaModuleRepository } from "../../../infrastructure/repositories/PrismaModuleRepository";
 import { PrismaStudyPlanRepository } from "../../../infrastructure/repositories/PrismaStudyPlanRepository";
 import { PrismaTaskRepository } from "../../../infrastructure/repositories/PrismaTaskRepository";
@@ -23,5 +24,5 @@ export const studyPlanController = new StudyPlanController(
     new DeleteStudyPlanUseCase(studyPlanRepository),
     new UpdateStudyPlanUseCase(studyPlanRepository),
     new GetStudyPlanByUserIdUseCase(studyPlanRepository, userRepository),
-    new GenerateStudyPlanUseCase(studyPlanRepository, moduleRepository, taskRepository, userRepository)
+    new GenerateStudyPlanUseCase(studyPlanRepository, moduleRepository, taskRepository, userRepository,new GroqProvider())
 );

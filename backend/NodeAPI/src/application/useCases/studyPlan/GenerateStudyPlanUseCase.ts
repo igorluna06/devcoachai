@@ -1,4 +1,4 @@
-import { generateContent } from "../../../utils/helper/groqHelper";
+import { AIService } from "../../../infrastructure/ai/AIService";
 import { IStudyPlanRepository } from "../../../domain/repositories/IStudyPlanRepository";
 import { IModuleRepository } from "../../../domain/repositories/IModuleRepository";
 import { ITaskRepository } from "../../../domain/repositories/ITaskRepository";
@@ -6,11 +6,11 @@ import { IUserRepository } from "../../../domain/repositories/IUserRepository";
 import { StudyPlan } from "../../../domain/entities/StudyPlan";
 import { Module } from "../../../domain/entities/Module";
 import { Task } from "../../../domain/entities/Task";
-import {UserNotFoundError } from "../../../domain/errors/UserError";
+import { UserNotFoundError } from "../../../domain/errors/UserError";
 import { GenerateStudyPlanDTO } from "../../DTOs/studyPlan/GenerateStudyPlanDTO";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { TaskType } from "../../../domain/enums/TaskType";
-import { AI_PROMPTS } from "../../../infrastructure/constants/AIConstants";
+import { AI_PROMPTS } from "../../../infrastructure/ai/prompts/StudyPlanPrompt";
 import { AIParseError } from "../../../infrastructure/errors/AIError";
 
 export class GenerateStudyPlanUseCase {
@@ -19,17 +19,20 @@ export class GenerateStudyPlanUseCase {
     private moduleRepository: IModuleRepository;
     private taskRepository: ITaskRepository;
     private userRepository: IUserRepository;
+    private aiService: AIService;
 
     constructor(
         studyPlanRepository: IStudyPlanRepository,
         moduleRepository: IModuleRepository,
         taskRepository: ITaskRepository,
-        userRepository: IUserRepository
+        userRepository: IUserRepository,
+        aiService: AIService
     ) {
         this.studyPlanRepository = studyPlanRepository;
         this.moduleRepository = moduleRepository;
         this.taskRepository = taskRepository;
         this.userRepository = userRepository;
+        this.aiService = aiService;
     }
 
     async execute(data: GenerateStudyPlanDTO): Promise<StudyPlan> {
@@ -40,7 +43,7 @@ export class GenerateStudyPlanUseCase {
         if (!user) throw new UserNotFoundError();
 
         const prompt = this.buildPrompt(data);
-        const response = await generateContent(prompt);
+        const response = await this.aiService.generate(prompt);
         const parsed = this.parseResponse(response);
 
         const studyPlan = await this.studyPlanRepository.create(
@@ -83,16 +86,16 @@ export class GenerateStudyPlanUseCase {
     }
 
     private buildPrompt(data: GenerateStudyPlanDTO): string {
-    return AI_PROMPTS.GENERATE_STUDY_PLAN(
-        data.goal,
-        data.preference,
-        data.region,
-        data.experienceLevel,
-        data.recommendedLanguage,
-        data.recommendedStack,
-        data.level
-    );
-}
+        return AI_PROMPTS.GENERATE_STUDY_PLAN(
+            data.goal,
+            data.preference,
+            data.region,
+            data.experienceLevel,
+            data.recommendedLanguage,
+            data.recommendedStack,
+            data.level
+        );
+    }
 
     private parseResponse(response: string): any {
         try {
