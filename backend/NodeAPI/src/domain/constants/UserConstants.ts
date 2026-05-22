@@ -26,7 +26,3 @@ export const USER_ERROR_CODES = {
   SAME_PASSWORD: "SAME_PASSWORD",
 } as const;
 
-export const USER_LABELS = {
-  TO_STRING: (id: number | undefined, name: string, email: string) =>
-    `User[id=${id}, nome=${name}, email=${email}]`,
-} as const;

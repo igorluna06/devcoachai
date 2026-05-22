@@ -1,3 +1,4 @@
+import { calculateAge } from "../../utils/helper/calculateAge";
 import { comparePassword, hashPassword } from "../../utils/helper/hashHelper";
 import { validateEmail } from "../../utils/validators/emailValidator";
 import { validateName } from "../../utils/validators/nameValidator";
@@ -102,13 +103,7 @@ export class User{
     }
     
     getAge(): number{
-        const today = new Date();
-        let age = today.getFullYear() - this.birthDate.getFullYear();
-        const birthMonth = today.getMonth() - this.birthDate.getMonth();
-        if(birthMonth > 0 || (birthMonth === 0 && today.getDate() < this.birthDate.getDate())){
-            age--;
-        }
-        return age;
+        return calculateAge(this.birthDate);
     }
 
     async checkPassword(password: string): Promise<boolean>{
