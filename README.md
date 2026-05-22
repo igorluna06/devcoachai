@@ -146,7 +146,7 @@ npm run start:dev
 - [x] Streak e Sessões de Estudo
 - [x] Conquistas e Certificados
 - [x] Onboarding inteligente
-- [ ] Integração com IA
+- [x] Integração com IA
 - [X] Serviço Java
 - [ ] Frontend
 
