@@ -1,7 +1,6 @@
 import { AIService } from "../../../infrastructure/ai/AIService";
 import { IStudyPlanRepository } from "../../../domain/repositories/IStudyPlanRepository";
 import { IModuleRepository } from "../../../domain/repositories/IModuleRepository";
-import { StudyPlan } from "../../../domain/entities/StudyPlan";
 import { Module } from "../../../domain/entities/Module";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { StudyPlanNotFoundError } from "../../../domain/errors/StudyPlanError";
@@ -45,13 +44,15 @@ export class GenerateModulesUseCase {
         let order = 1;
 
         for (const moduleData of parsed.modules) {
+            const isFirstModule = order === 1;
             const module = await this.moduleRepository.create(
                 Module.create(
                     moduleData.title,
                     order++,
                     studyPlanId,
                     moduleData.description,
-                    moduleData.estimatedHours
+                    moduleData.estimatedHours,
+                    !isFirstModule
                 )
             );
             modules.push(module);

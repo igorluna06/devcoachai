@@ -59,26 +59,30 @@ export class GenerateStudyPlanUseCase {
 
         let moduleOrder = 1;
         for (const moduleData of parsed.modules) {
+            const isFirstModule = moduleOrder === 1;
             const module = await this.moduleRepository.create(
                 Module.create(
                     moduleData.title,
                     moduleOrder++,
                     studyPlan.getStudyPlanId()!,
                     moduleData.description,
-                    moduleData.estimatedHours
+                    moduleData.estimatedHours,
+                    !isFirstModule
                 )
             );
 
-            for (const taskData of moduleData.tasks) {
-                await this.taskRepository.create(
-                    Task.create(
-                        taskData.title,
-                        module.getModuleId()!,
-                        taskData.type as TaskType,
-                        taskData.description,
-                        taskData.estimatedMinutes
-                    )
-                );
+            if (isFirstModule) {
+                for (const taskData of moduleData.tasks) {
+                    await this.taskRepository.create(
+                        Task.create(
+                            taskData.title,
+                            module.getModuleId()!,
+                            taskData.type as TaskType,
+                            taskData.description,
+                            taskData.estimatedMinutes
+                        )
+                    );
+                }
             }
         }
 

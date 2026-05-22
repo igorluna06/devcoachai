@@ -10,6 +10,7 @@ import { ICertificateRepository } from "../../../domain/repositories/ICertificat
 import { Achievement } from "../../../domain/entities/Achievement";
 import { Certificate } from "../../../domain/entities/Certificate";
 import { AchievementType } from "../../../domain/enums/AchievementType";
+import { ACHIEVEMENT_MESSAGES } from "../../../domain/constants/AchievementConstants";
 
 export class CompleteTaskUseCase {
 
@@ -59,8 +60,8 @@ export class CompleteTaskUseCase {
 
             await this.achievementRepository.create(
                 Achievement.create(
-                    "Módulo Concluído",
-                    `Você concluiu o módulo: ${module.getModuleTitle()}`,
+                    ACHIEVEMENT_MESSAGES.MODULE_COMPLETED_TITLE,
+                    ACHIEVEMENT_MESSAGES.MODULE_COMPLETED_DESCRIPTION(module.getModuleTitle()),
                     AchievementType.MODULE_COMPLETED,
                     userId
                 )
@@ -78,8 +79,8 @@ export class CompleteTaskUseCase {
 
                 await this.achievementRepository.create(
                     Achievement.create(
-                        "Plano Concluído",
-                        `Você concluiu o plano: ${studyPlan.getTitle()}`,
+                        ACHIEVEMENT_MESSAGES.PLAN_COMPLETED_TITLE,
+                        ACHIEVEMENT_MESSAGES.PLAN_COMPLETED_DESCRIPTION(studyPlan.getTitle()),
                         AchievementType.PLAN_COMPLETED,
                         userId
                     )
@@ -87,7 +88,7 @@ export class CompleteTaskUseCase {
 
                 await this.certificateRepository.create(
                     Certificate.create(
-                        `Certificado de Conclusão - ${studyPlan.getTitle()}`,
+                        ACHIEVEMENT_MESSAGES.CERTIFICATE_TITLE(studyPlan.getTitle()),
                         userId,
                         studyPlan.getStudyPlanId()!
                     )

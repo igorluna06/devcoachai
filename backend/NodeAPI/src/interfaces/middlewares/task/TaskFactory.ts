@@ -13,6 +13,8 @@ import { GetTaskByTypeUseCase } from "../../../application/useCases/task/GetTask
 import { DeleteTaskUseCase } from "../../../application/useCases/task/DeleteTaskUseCase";
 import { UpdateTaskUseCase } from "../../../application/useCases/task/UpdateTaskUseCase";
 import { CompleteTaskUseCase } from "../../../application/useCases/task/CompleteTaskUseCase";
+import { GenerateTasksUseCase } from "../../../application/useCases/task/GenerateTasksUseCase";
+import { GroqProvider } from "../../../infrastructure/ai/provider/groqProvider";
 
 const prismaTaskRepository = new PrismaTaskRepository();
 const prismaModuleRepository = new PrismaModuleRepository();
@@ -36,5 +38,11 @@ export const taskController = new TaskController(
         prismaUserRepository,
         prismaAchievementRepository,
         prismaCertificateRepository
+    ),
+    new GenerateTasksUseCase(
+        prismaTaskRepository,
+        prismaModuleRepository,
+        prismaStudyPlanRepository,
+        new GroqProvider()
     )
 );

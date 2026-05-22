@@ -57,6 +57,7 @@ model Module {
   order          Int
   isCompleted    Boolean   @default(false)
   estimatedHours Int?
+  isLocked Boolean @default(true)
   studyPlanId    Int
   studyPlan      StudyPlan @relation(fields: [studyPlanId], references: [id], onDelete: Cascade)
   tasks          Task[]

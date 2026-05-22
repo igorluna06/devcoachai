@@ -10,7 +10,8 @@ export class PrismaModuleMapper {
             prismaModule.id,
             prismaModule.description,
             prismaModule.isCompleted,
-            prismaModule.estimatedHours
+            prismaModule.estimatedHours,
+            prismaModule.isLocked
         );
     }
 }

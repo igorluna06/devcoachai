@@ -19,6 +19,7 @@ export class GroqProvider implements AIService {
                     },
                 ],
                 temperature: 0.7,
+                max_tokens: 4096,
         });
 
             return completion.choices[0].message.content || "";

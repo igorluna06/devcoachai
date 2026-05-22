@@ -10,6 +10,7 @@ import { TaskType } from "../../../domain/enums/TaskType";
 import { DeleteTaskUseCase } from "../../../application/useCases/task/DeleteTaskUseCase";
 import { UpdateTaskUseCase } from "../../../application/useCases/task/UpdateTaskUseCase";
 import { CompleteTaskUseCase } from "../../../application/useCases/task/CompleteTaskUseCase";
+import { GenerateTasksUseCase } from "../../../application/useCases/task/GenerateTasksUseCase";
 
 
 export class TaskController {
@@ -22,6 +23,7 @@ export class TaskController {
     private deleteTaskUseCase: DeleteTaskUseCase;
     private updateTaskUseCase: UpdateTaskUseCase;
     private completeTaskUseCase: CompleteTaskUseCase;
+    private generateTasksUseCase: GenerateTasksUseCase;
 
     constructor(
         createTaskUseCase: CreateTaskUseCase,
@@ -31,7 +33,8 @@ export class TaskController {
         getTaskByTypeUseCase: GetTaskByTypeUseCase,
         deleteTaskUseCase: DeleteTaskUseCase,
         updateTaskUseCase: UpdateTaskUseCase,
-        completeTaskUseCase: CompleteTaskUseCase
+        completeTaskUseCase: CompleteTaskUseCase,
+        generateTasksUseCase: GenerateTasksUseCase
     ) {
         this.createTaskUseCase = createTaskUseCase;
         this.getTaskByIdUseCase = getTaskByIdUseCase;
@@ -41,6 +44,7 @@ export class TaskController {
         this.deleteTaskUseCase = deleteTaskUseCase;
         this.updateTaskUseCase = updateTaskUseCase;
         this.completeTaskUseCase = completeTaskUseCase;
+        this.generateTasksUseCase = generateTasksUseCase;
     }
 
     async createTask(req: Request, res: Response, next: NextFunction): Promise<void>{
@@ -48,6 +52,16 @@ export class TaskController {
             const data = req.body;
             const createdTask = await this.createTaskUseCase.execute(data);
             res.status(HttpStatusCode.CREATED).json({message: TaskSuccessMessages.TASK_CREATED, task: createdTask});
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async generateTasks(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const moduleId: number = Number(req.params.id);
+            const tasks = await this.generateTasksUseCase.execute(moduleId);
+            res.status(HttpStatusCode.CREATED).json({ message: TaskSuccessMessages.TASK_CREATED, tasks });
         } catch (error) {
             next(error);
         }

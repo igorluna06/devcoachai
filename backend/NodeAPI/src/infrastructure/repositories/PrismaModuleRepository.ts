@@ -21,6 +21,14 @@ export class PrismaModuleRepository implements IModuleRepository {
         return modules.map(module => PrismaModuleMapper.toDomain(module));
     }
 
+    async findNextModule(studyPlanId: number, currentOrder: number): Promise<Module | null> {
+        const moduleFound = await prisma.module.findFirst({
+            where: { studyPlanId, order: currentOrder + 1 }
+        });
+        if (!moduleFound) return null;
+        return PrismaModuleMapper.toDomain(moduleFound);
+    }
+
     async create(module: Module): Promise<Module> {
         const moduleCreated = await prisma.module.create({
             data: {

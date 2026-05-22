@@ -12,6 +12,7 @@ export class Module {
     private description: string | null;
     private isCompleted: boolean;
     private estimatedHours: number | null;
+    private isLocked: boolean;
 
     private constructor(
         moduleTitle: string,
@@ -20,7 +21,8 @@ export class Module {
         moduleId?: number,
         description: string | null = null,
         isCompleted: boolean = false,
-        estimatedHours: number | null = null
+        estimatedHours: number | null = null,
+        isLocked: boolean = true
     ) {
         this.moduleId = moduleId;
         this.moduleTitle = moduleTitle;
@@ -29,6 +31,7 @@ export class Module {
         this.description = description;
         this.isCompleted = isCompleted;
         this.estimatedHours = estimatedHours;
+        this.isLocked = isLocked;
     }
 
     static create(
@@ -36,12 +39,13 @@ export class Module {
         order: number,
         studyPlanId: number,
         description?: string | null,
-        estimatedHours?: number | null
+        estimatedHours?: number | null,
+        isLocked: boolean = true
     ): Module {
         validateTitle(moduleTitle);
         validateOrder(order);
         if (description) validateDescription(description);
-        return new Module(moduleTitle, order, studyPlanId, undefined, description, false, estimatedHours);
+        return new Module(moduleTitle, order, studyPlanId, undefined, description, false, estimatedHours, isLocked);
     }
 
     static restore(
@@ -51,9 +55,10 @@ export class Module {
         moduleId: number,
         description: string | null = null,
         isCompleted: boolean = false,
-        estimatedHours: number | null = null
+        estimatedHours: number | null = null,
+        isLocked: boolean = true
     ): Module {
-        return new Module(moduleTitle, order, studyPlanId, moduleId, description, isCompleted, estimatedHours);
+        return new Module(moduleTitle, order, studyPlanId, moduleId, description, isCompleted, estimatedHours, isLocked);
     }
 
     getModuleId(): number | undefined { return this.moduleId; }
@@ -63,6 +68,7 @@ export class Module {
     getDescription(): string | null { return this.description; }
     getIsCompleted(): boolean { return this.isCompleted; }
     getEstimatedHours(): number | null { return this.estimatedHours; }
+    getIsLocked(): boolean { return this.isLocked; }
 
     setModuleTitle(moduleTitle: string): void {
         validateTitle(moduleTitle);
@@ -86,4 +92,6 @@ export class Module {
 
     complete(): void { this.isCompleted = true; }
     uncomplete(): void { this.isCompleted = false; }
+    lock(): void { this.isLocked = true; }
+    unlock(): void { this.isLocked = false; }
 }
