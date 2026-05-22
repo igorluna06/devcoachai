@@ -19,6 +19,9 @@ public class Module {
     private Integer order;
     @Column(name = "studyPlanId")
     private Integer studyPlanId;
+    @Column(name = "isLocked")
+    private boolean isLocked;
+
 
     public Module(){}
 
@@ -27,4 +30,5 @@ public class Module {
     public boolean isCompleted() {return isCompleted;}
     public Integer getOrder() {return order;}
     public Integer getStudyPlanId() {return studyPlanId;}
+    public boolean isLocked() { return isLocked; }
 }
