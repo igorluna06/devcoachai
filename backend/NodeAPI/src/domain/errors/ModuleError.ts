@@ -25,3 +25,16 @@ export class ModuleNotFoundError extends Error {
     getStatusCode(): number { return this.statusCode; }
     getErrorCode(): string { return this.code; }
 }
+
+export class ModuleLockedError extends Error {
+    private statusCode: number;
+    private code: string;
+    constructor() {
+        super(MODULE_ERROR_MESSAGES.MODULE_LOCKED);
+        this.name = "ModuleLockedError";
+        this.code = MODULE_ERROR_CODES.MODULE_LOCKED;
+        this.statusCode = 403;
+    }
+    getStatusCode(): number { return this.statusCode; }
+    getErrorCode(): string { return this.code; }
+}

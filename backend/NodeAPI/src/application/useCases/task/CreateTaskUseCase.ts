@@ -1,5 +1,5 @@
 import { Task } from "../../../domain/entities/Task";
-import { ModuleNotFoundError } from "../../../domain/errors/ModuleError";
+import { ModuleLockedError, ModuleNotFoundError } from "../../../domain/errors/ModuleError";
 import { InvalidEstimatedMinutesError } from "../../../domain/errors/TaskError";
 import { InvalidIdError } from "../../../domain/errors/CommonError";
 import { IModuleRepository } from "../../../domain/repositories/IModuleRepository";
@@ -34,6 +34,10 @@ export class CreateTaskUseCase {
 
         if (!module) {
             throw new ModuleNotFoundError();
+        }
+
+        if (module.getIsLocked()) {
+            throw new ModuleLockedError();
         }
 
         validateTitle(data.title);

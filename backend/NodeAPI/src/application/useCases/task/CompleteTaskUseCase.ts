@@ -11,6 +11,7 @@ import { Achievement } from "../../../domain/entities/Achievement";
 import { Certificate } from "../../../domain/entities/Certificate";
 import { AchievementType } from "../../../domain/enums/AchievementType";
 import { ACHIEVEMENT_MESSAGES } from "../../../domain/constants/AchievementConstants";
+import { ModuleLockedError } from "../../../domain/errors/ModuleError";
 
 export class CompleteTaskUseCase {
 
@@ -50,6 +51,10 @@ export class CompleteTaskUseCase {
 
         const module = await this.moduleRepository.findById(task.getModuleId());
         if (!module) return task;
+
+        if (module.getIsLocked()) {
+            throw new ModuleLockedError();
+        }
 
         const moduleTasks = await this.taskRepository.findByModuleId(module.getModuleId()!);
         const allTasksCompleted = moduleTasks.every(t => t.getIsCompleted());
