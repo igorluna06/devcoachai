@@ -2,7 +2,7 @@ export const STUDY_PLAN_ERROR_MESSAGES = {
     INVALID_LANGUAGE: "Linguagem inválida.",
     STUDY_PLAN_ALREADY_EXISTS: "Você já possui um plano de estudos para essa linguagem.",
     STUDY_PLAN_NOT_FOUND: "Plano de estudos não encontrado.",
-    INVALID_ESTIMATED_DAYS: "Estimated days must be greater than 0.",
+    INVALID_ESTIMATED_DAYS: "Os dias estimados devem ser maiores que 0.",
     INVALID_LEVEL: "Nível inválido.",
 } as const;
 
