@@ -9,6 +9,8 @@ import { DeleteStudyPlanUseCase } from "../../../application/useCases/studyPlan/
 import { UpdateStudyPlanUseCase } from "../../../application/useCases/studyPlan/updateStudyPlanUseCase";
 import { GetStudyPlanByUserIdUseCase } from "../../../application/useCases/studyPlan/GetStudyPlanByUserIdUseCase";
 import { GenerateStudyPlanUseCase } from "../../../application/useCases/studyPlan/GenerateStudyPlanUseCase";
+import { GetProgressAnalysisUseCase } from "../../../application/useCases/studyPlan/GetProgressAnalysisUseCase";
+import { GetSuggestionsUseCase } from "../../../application/useCases/studyPlan/GetSuggestionsUseCase";
 
 export class StudyPlanController{
 
@@ -19,6 +21,8 @@ export class StudyPlanController{
     private updateStudyPlanUseCase: UpdateStudyPlanUseCase;
     private getStudyPlanByUserIdUseCase: GetStudyPlanByUserIdUseCase;
     private generateStudyPlanUseCase: GenerateStudyPlanUseCase;
+    private getProgressAnalysisUseCase: GetProgressAnalysisUseCase;
+    private getSuggestionsUseCase: GetSuggestionsUseCase;
 
     constructor(
         createStudyPlanUseCase: CreateStudyPlanUseCase,
@@ -27,7 +31,9 @@ export class StudyPlanController{
         deleteStudyPlanUseCase: DeleteStudyPlanUseCase,
         updateStudyPlanUseCase: UpdateStudyPlanUseCase,
         getStudyPlanByUserIdUseCase: GetStudyPlanByUserIdUseCase,
-        generateStudyPlanUseCase: GenerateStudyPlanUseCase
+        generateStudyPlanUseCase: GenerateStudyPlanUseCase,
+        getProgressAnalysisUseCase: GetProgressAnalysisUseCase,
+        getSuggestionsUseCase: GetSuggestionsUseCase
     ){
         this.createStudyPlanUseCase = createStudyPlanUseCase;
         this.getStudyPlanByIdUseCase = getStudyPlanByIdUseCase;
@@ -36,6 +42,8 @@ export class StudyPlanController{
         this.updateStudyPlanUseCase = updateStudyPlanUseCase;
         this.getStudyPlanByUserIdUseCase = getStudyPlanByUserIdUseCase;
         this.generateStudyPlanUseCase = generateStudyPlanUseCase;
+        this.getProgressAnalysisUseCase = getProgressAnalysisUseCase;
+        this.getSuggestionsUseCase = getSuggestionsUseCase;
     }
 
     async createStudyPlan(req: Request, res: Response, next: NextFunction): Promise<void>{
@@ -102,6 +110,26 @@ export class StudyPlanController{
             const userId: number = Number(req.params.userId);
             const studyPlans = await this.getStudyPlanByUserIdUseCase.execute(userId);
             res.status(HttpStatusCode.OK).json(studyPlans);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async getProgressAnalysis(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const studyPlanId: number = Number(req.params.id);
+            const analysis = await this.getProgressAnalysisUseCase.execute(studyPlanId);
+            res.status(HttpStatusCode.OK).json(analysis);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async getSuggestions(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const studyPlanId: number = Number(req.params.id);
+            const suggestions = await this.getSuggestionsUseCase.execute(studyPlanId);
+            res.status(HttpStatusCode.OK).json(suggestions);
         } catch (error) {
             next(error);
         }
