@@ -31,7 +31,7 @@ export class UserController{
         getUserByEmailUseCase: GetUserByEmailUseCase,
         deleteUserUseCase: DeleteUserUseCase,
         updatePasswordUseCase: UpdatePasswordUseCase,
-         authenticateUserUseCase: AuthenticateUserUseCase
+        authenticateUserUseCase: AuthenticateUserUseCase
     ){
         this.createUserUseCase = createUserUseCase;
         this.updateUserUseCase = updateUserUseCase;
