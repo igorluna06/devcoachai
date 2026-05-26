@@ -9,6 +9,8 @@ function getPageTitle(pathname: string): string {
     '/dashboard': 'Dashboard',
     '/plans': 'Meus Planos',
     '/progress': 'Progresso',
+    '/achievements': 'Conquistas',
+    '/certificates': 'Certificados',
     '/profile': 'Perfil',
     '/settings': 'Configurações'
   }

@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../../application/contexts/AuthContext'
 import { useStudyPlanContext } from '../../../application/contexts/StudyPlanContext'
-import { Flame, Plus, TrendingUp } from 'lucide-react'
+import { Flame, Plus} from 'lucide-react'
 
 export default function DashboardPage() {
   const { user } = useAuth()
+  const displayName = user?.name ?? ''
+  const firstName = displayName.split(' ')[0] || 'amigo'
   const { plans, fetchPlans } = useStudyPlanContext()
   const [isVisible, setIsVisible] = useState(false)
 
@@ -27,7 +29,7 @@ export default function DashboardPage() {
       {/* Greeting */}
       <div>
         <h1 className="text-4xl font-bold text-white mb-2">
-          {getGreeting()}, {user?.name.split(' ')[0]}! 👋
+          {getGreeting()}, {firstName}! 👋
         </h1>
         <p className="text-[#888888]">Você está evoluindo a cada dia. Continue assim!</p>
       </div>

@@ -4,6 +4,8 @@ import { User, Mail, Trophy, BookOpen, Award } from 'lucide-react'
 
 export default function ProfilePage() {
   const { user } = useAuth()
+  const displayName = user?.name ?? ''
+  const displayInitial = (displayName[0] ?? '').toUpperCase()
   return (
     <div className="space-y-8">
       <h1 className="text-3xl font-bold text-white">Perfil</h1>
@@ -12,7 +14,7 @@ export default function ProfilePage() {
       <div className="p-8 rounded-2xl border border-[#1a1a1a] bg-black/50">
         <div className="flex items-start gap-6">
           <div className="w-24 h-24 rounded-xl bg-gradient-to-br from-[#6366f1] to-[#4f52d4] flex items-center justify-center text-white font-bold text-4xl flex-shrink-0">
-            {user?.name.charAt(0).toUpperCase()}
+            {displayInitial}
           </div>
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">

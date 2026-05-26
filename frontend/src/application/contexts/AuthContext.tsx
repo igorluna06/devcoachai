@@ -36,7 +36,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const res = await api.post('/user/auth', { email, password })
       const token = res.data.token
-      const userId = res.data.userId ?? res.data.id
+      if (!token) throw new Error('Invalid response')
+
+      // Decodifica o payload do JWT (sem biblioteca)
+      const payload = JSON.parse(atob(token.split('.')[1]))
+      const userId = payload.userId ?? payload.id ?? payload.sub
+
+      if (!userId) throw new Error('userId not found in token')
+
+      localStorage.setItem('token', token)
+      localStorage.setItem('userId', userId)
       if (!token || !userId) throw new Error('Invalid response')
       localStorage.setItem('token', token)
       localStorage.setItem('userId', userId)
@@ -44,7 +53,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(userRes.data)
       toast.success('Logged in')
     } catch (err: any) {
-      console.log('ERRO LOGIN:', err)
+  console.log('ERRO LOGIN:', err)
   console.log('RESPOSTA LOGIN:', err.response)
   console.log('DADOS LOGIN:', err.response?.data)
 

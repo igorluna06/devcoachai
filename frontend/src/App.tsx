@@ -15,6 +15,8 @@ import ModuleDetailPage from './interfaces/pages/app/ModuleDetailPage'
 import ProgressPage from './interfaces/pages/app/ProgressPage'
 import ProfilePage from './interfaces/pages/app/ProfilePage'
 import SettingsPage from './interfaces/pages/app/SettingsPage'
+import AchievementsPage from './interfaces/pages/app/AchievementsPage'
+import CertificatesPage from './interfaces/pages/app/CertificatesPage'
 import PricingPage from './interfaces/pages/public/PricingPage'
 import PrivateRoute from './interfaces/layout/PrivateRoute'
 
@@ -36,7 +38,10 @@ export default function App() {
           <Route path="/plans" element={<StudyPlanListPage/>} />
           <Route path="/plans/:planId" element={<StudyPlanDetailPage/>} />
           <Route path="/plans/:planId/modules/:moduleId" element={<ModuleDetailPage/>} />
+          <Route path="/progress" element={<ProgressPage/>} />
           <Route path="/progress/:planId" element={<ProgressPage/>} />
+          <Route path="/achievements" element={<AchievementsPage />} />
+          <Route path="/certificates" element={<CertificatesPage />} />
           <Route path="/profile" element={<ProfilePage/>} />
           <Route path="/settings" element={<SettingsPage/>} />
         </Route>

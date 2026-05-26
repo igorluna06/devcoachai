@@ -1,17 +1,58 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
+import { useStudyPlanContext } from '../../../application/contexts/StudyPlanContext'
 import api from '../../../infrastructure/http/api'
-import { TrendingUp, AlertCircle, Lightbulb } from 'lucide-react'
+import { TrendingUp, AlertCircle, Lightbulb, BookOpen } from 'lucide-react'
 
 export default function ProgressPage() {
   const { planId } = useParams()
+  const { plans } = useStudyPlanContext()
   const [summary, setSummary] = useState<any>(null)
 
   useEffect(() => {
-    if (!planId) return
-    api.get(`/studyplan/${planId}/analysis`).then((res) => setSummary(res.data)).catch(() => {})
-  }, [planId])
+    const id = planId || plans[0]?.id
+    if (!id) return
+    api.get(`/studyplan/${id}/analysis`).then((res) => setSummary(res.data)).catch(() => {})
+  }, [planId, plans])
 
+  // Se não há planId e não há planos, mostrar mensagem
+  if (!planId && !plans.length) {
+    return (
+      <div className="space-y-8">
+        <h1 className="text-3xl font-bold text-white">Progresso</h1>
+        <div className="rounded-2xl border border-[#1a1a1a] bg-black/50 p-12 text-center">
+          <BookOpen size={48} className="mx-auto mb-4 text-[#555555]" />
+          <p className="text-[#888888] mb-4">Você ainda não tem nenhum plano de estudo</p>
+          <Link
+            to="/plans"
+            className="inline-flex items-center gap-2 px-6 py-2 rounded-lg bg-[#6366f1] text-white font-medium hover:bg-[#4f52d4] transition"
+          >
+            Ver meus planos
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
+  // Se não há planId mas tem planos, use o primeiro
+  const activePlanId = planId || plans[0]?.id
+  if (!activePlanId) {
+    return (
+      <div className="space-y-8">
+        <h1 className="text-3xl font-bold text-white">Progresso</h1>
+        <div className="rounded-2xl border border-[#1a1a1a] bg-black/50 p-12 text-center">
+          <BookOpen size={48} className="mx-auto mb-4 text-[#555555]" />
+          <p className="text-[#888888] mb-4">Nenhum plano disponível</p>
+          <Link
+            to="/plans"
+            className="inline-flex items-center gap-2 px-6 py-2 rounded-lg bg-[#6366f1] text-white font-medium hover:bg-[#4f52d4] transition"
+          >
+            Criar um plano
+          </Link>
+        </div>
+      </div>
+    )
+  }
   const progress = summary?.progress ?? 0
   const getStatus = (p: number) => {
     if (p < 20) return { label: 'Começando', color: 'bg-[#ef4444]' }

@@ -26,9 +26,7 @@ export default function OnboardingPage() {
       goal,
       preference,
       region,
-      experienceLevel: level,
-      recommendedLanguage: 'TypeScript',
-      recommendedStack: 'React'
+      experienceLevel: level
     }
     try {
       await generatePlan(payload)
@@ -199,7 +197,7 @@ export default function OnboardingPage() {
                   <div>
                     <div className="font-semibold text-white">Recomendação</div>
                     <div className="text-sm text-[#888888]">
-                      Você receberá um plano completo de estudos em <strong>TypeScript + React</strong>, otimizado para seu perfil.
+                      Nossa IA vai analisar seu perfil e recomendar as melhores linguagens e frameworks para seus objetivos.
                     </div>
                   </div>
                 </div>

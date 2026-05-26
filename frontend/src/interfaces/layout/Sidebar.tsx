@@ -2,21 +2,28 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { Home, BookOpen, TrendingUp, Trophy, Award, Settings, Flame } from 'lucide-react'
 import { useAuth } from '../../application/contexts/AuthContext'
+import { useStudyPlanContext } from '../../application/contexts/StudyPlanContext'
 
 export default function Sidebar() {
   const { user } = useAuth()
+  const { plans } = useStudyPlanContext()
+  const displayName = user?.name ?? ''
+  const displayInitial = (displayName[0] ?? '').toUpperCase()
+  const displayEmail = user?.email ?? 'Sem email'
 
   const navItems = [
     { icon: Home, label: 'Dashboard', href: '/dashboard' },
     { icon: BookOpen, label: 'Meus Planos', href: '/plans' },
     { icon: TrendingUp, label: 'Progresso', href: '/progress' },
-    { icon: Trophy, label: 'Conquistas', href: '#' },
-    { icon: Award, label: 'Certificados', href: '#' },
+    { icon: Trophy, label: 'Conquistas', href: '/achievements' },
+    { icon: Award, label: 'Certificados', href: '/certificates' },
     { icon: Settings, label: 'Configurações', href: '/settings' }
   ]
 
+  const isProgressActive = location.pathname.startsWith('/progress')
+
   return (
-    <aside className="hidden lg:flex flex-col w-60 h-screen border-r border-[#1a1a1a] bg-black sticky top-0">
+    <aside className="flex flex-col w-60 h-screen border-r border-[#1a1a1a] bg-black sticky top-0">
       {/* Logo */}
       <div className="p-6 border-b border-[#1a1a1a]">
         <div className="text-lg font-bold text-white">&lt;/&gt; DevCoachAI</div>
@@ -26,17 +33,20 @@ export default function Sidebar() {
       <nav className="flex-1 p-4 space-y-2">
         {navItems.map((item) => {
           const Icon = item.icon
+          
           return (
             <NavLink
               key={item.label}
               to={item.href}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-3 rounded-lg transition ${
-                  isActive
+              className={({ isActive }) => {
+                const shouldBeActive = isActive
+                
+                return `flex items-center gap-3 px-4 py-3 rounded-lg transition ${
+                  shouldBeActive
                     ? 'bg-[#6366f1]/10 border border-[#6366f1] text-white'
                     : 'text-[#888888] hover:text-white hover:bg-[#0a0a0a]'
                 }`
-              }
+              }}
             >
               <Icon size={18} />
               <span className="text-sm font-medium">{item.label}</span>
@@ -59,11 +69,11 @@ export default function Sidebar() {
         <div className="p-3 rounded-lg bg-[#0a0a0a] border border-[#1a1a1a]">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-[#6366f1] flex items-center justify-center text-white font-bold">
-              {user?.name.charAt(0).toUpperCase()}
+              {displayInitial}
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-sm font-semibold text-white truncate">{user?.name}</div>
-              <div className="text-xs text-[#555555] truncate">{user?.email}</div>
+              <div className="text-sm font-semibold text-white truncate">{displayName || 'Usuário'}</div>
+              <div className="text-xs text-[#555555] truncate">{displayEmail}</div>
             </div>
           </div>
         </div>
