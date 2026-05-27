@@ -1,7 +1,7 @@
 export type TaskType = 'THEORY' | 'PRACTICE' | 'PROJECT'
 
 export type Task = {
-  id: string
+  id: number
   title: string
   type: TaskType
   estimatedMinutes?: number

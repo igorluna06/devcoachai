@@ -1,7 +1,8 @@
 import { Module } from './Module'
 
 export type StudyPlan = {
-  id: string
+  id: number
+  studyPlanId?: number
   title: string
   language: string
   level: string

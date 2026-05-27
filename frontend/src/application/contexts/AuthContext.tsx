@@ -17,12 +17,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
 
+  const mapUser = (data: any): User => ({
+    id: data.userId ?? data.id,
+    name: data.userName ?? data.name,
+    email: data.email,
+    birthDate: data.birthDate,
+    avatarUrl: data.avatarUrl ?? null
+  })
+
   useEffect(() => {
     const id = localStorage.getItem('userId')
     const token = localStorage.getItem('token')
     if (id && token) {
       api.get(`/user/${id}`)
-        .then((res) => setUser(res.data))
+        .then((res) => setUser(mapUser(res.data)))
         .catch(() => {
           localStorage.removeItem('token')
           localStorage.removeItem('userId')
@@ -38,28 +46,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const token = res.data.token
       if (!token) throw new Error('Invalid response')
 
-      // Decodifica o payload do JWT (sem biblioteca)
       const payload = JSON.parse(atob(token.split('.')[1]))
       const userId = payload.userId ?? payload.id ?? payload.sub
 
       if (!userId) throw new Error('userId not found in token')
 
       localStorage.setItem('token', token)
-      localStorage.setItem('userId', userId)
-      if (!token || !userId) throw new Error('Invalid response')
-      localStorage.setItem('token', token)
-      localStorage.setItem('userId', userId)
+      localStorage.setItem('userId', String(userId))
+
       const userRes = await api.get(`/user/${userId}`)
-      setUser(userRes.data)
-      toast.success('Logged in')
+      setUser(mapUser(userRes.data))
+      toast.success('Login realizado com sucesso!')
     } catch (err: any) {
-  console.log('ERRO LOGIN:', err)
-  console.log('RESPOSTA LOGIN:', err.response)
-  console.log('DADOS LOGIN:', err.response?.data)
-
-  toast.error('Failed to login')
-
-  throw err
+      toast.error('Erro ao fazer login. Verifique suas credenciais.')
+      throw err
     } finally {
       setLoading(false)
     }
@@ -69,17 +69,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setLoading(true)
     try {
       const res = await api.post('/user', { userName: name, birthDate, email, password })
-      const token = res.data.token ?? res.data?.token
       const userId = res.data.userId ?? res.data?.id
-      if (token) localStorage.setItem('token', token)
-      if (userId) localStorage.setItem('userId', userId)
+
       if (userId) {
+        localStorage.setItem('userId', String(userId))
         const userRes = await api.get(`/user/${userId}`)
-        setUser(userRes.data)
+        setUser(mapUser(userRes.data))
       }
-      toast.success('Account created')
+
+      toast.success('Conta criada com sucesso!')
     } catch (e) {
-      toast.error('Failed to create account')
+      toast.error('Erro ao criar conta.')
       throw e
     } finally {
       setLoading(false)
