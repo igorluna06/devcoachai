@@ -71,8 +71,18 @@ model Task {
   isCompleted      Boolean          @default(false)
   estimatedMinutes Int?
   difficultyRating DifficultyRating?
+  contents TaskContent[]
   moduleId         Int
   module           Module           @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+}
+
+model TaskContent {
+  id          Int      @id @default(autoincrement())
+  title       String
+  content     String
+  order       Int
+  taskId      Int
+  task        Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
 }
 
 model StudySession {
